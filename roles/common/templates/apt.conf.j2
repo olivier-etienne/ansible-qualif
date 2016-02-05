@@ -1,0 +1,4 @@
+Acquire::http::proxy "http://{{ cntlm_listen_address }}:{{ cntlm_listen_port }}/";
+Acquire::https::proxy "https://{{ cntlm_listen_address }}:{{ cntlm_listen_port }}/";
+Acquire::ftp::proxy "ftp://{{ cntlm_listen_address }}:{{ cntlm_listen_port }}/";
+Acquire::socks::proxy "socks://{{ cntlm_listen_address }}:{{ cntlm_listen_port }}/";
