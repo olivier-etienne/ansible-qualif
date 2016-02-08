@@ -4,6 +4,8 @@
 - name: apply common configuration to all nodes
   hosts: qualif
   remote_user: qualif
+  become_user: root
+  become_method: su
 
   roles:
     - common

@@ -1,63 +1,52 @@
 ---
-# This playbook contains common plays that will be run on all nodes.
+# This playbook contains common plays
 
-####################
-# Proxy management #
-####################
+##################
+# User managment #
+##################
 
-- name: Config environment proxy
-  template: >
-    src={{ environment_config_template }}
-    dest={{ environment_config_file }}
-  sudo: yes
+- name: Install sudo (update cache first)
+  apt: name=sudo state=present update_cache=yes
+  become: yes
 
-- name: Config apt proxy
-  template: >
-    src={{ apt_config_template }}
-    dest={{ apt_config_file }}
-  sudo: yes
-
-- name: Copy cntlm deb on remote
-  copy: >
-    src={{ deb_cntlm_package }}
-    dest=/home/{{ user }}/{{ deb_cntlm_package }}
-  
-- name: Install cntlm deb
-  apt: deb=/home/{{ user }}/{{ deb_cntlm_package }}
-  sudo: yes
-
-- name: Setting up cntlm configuration
-  template: >
-    src={{ cntlm_config_template }}
-    dest={{ cntlm_config_file }}
-  sudo: yes
-
-- name: Start the cntlm service
-  service: >
-    name=cntlm
-    state=restarted
-    enabled=yes
-    sleep=3
-  sudo: yes
+- name: Create qualif user in sudo group
+  user: name=qualif comment="Qualif" group=sudo
+  become: yes
 
 
 ###################
-# Time management #
+# Proxy managment #
+###################
+
+- name: Install cntlm
+  apt: name=cntlm state=present
+  become: yes
+
+- name: Restart the cntlm service
+  service: >
+    name=cntlm
+    state=started
+    enabled=true
+  become: yes
+
+
+###################
+# Time managment #
 ###################
 
 - name: Set local timezone
   copy: >
     content={{ timezone }}
     dest=/etc/timezone
-  sudo: yes
+  become: yes
 
 - name: Update tzdata
   command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
-  sudo: yes
+  become: yes
 
-- name: Install ntp (with apt-get update first)
-  apt: name=ntp state=present update_cache=yes
-  sudo: yes
+- name: Install ntp
+  apt: name=ntp state=present
+  become: yes
 
 - name: Setting up ntp servers configuration
   lineinfile: >
@@ -66,21 +55,24 @@
     line="{{ item.line }}"
   with_items:
     "{{ ntp_servers }}"
-  sudo: yes
+  become: yes
 
 - name: Start the ntp service
   service: >
     name=ntp
-    state=restarted
+    state=started
     enabled=true
-    sleep=3
-  sudo: yes
+  become: yes
 
 
-######################
-# Apache2 management #
-######################
+#########################
+# Subversion management #
+#########################
 
-- name: Install apache2
-  apt: name=apache2 state=present
-  sudo: yes
+- name: Install svn
+  apt: name=subversion state=present
+  become: yes
+
+- name: Install git
+  apt: name=git-core state=present
+  become: yes

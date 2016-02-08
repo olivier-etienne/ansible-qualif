@@ -5,6 +5,7 @@
 Serveur
 
   - Installer debian sur le serveur
+  - apt-get update && apt-get upgrade
   - Installer sudo sur le serveur
     https://packages.debian.org/fr/jessie/amd64/sudo/download
   - Créer un utilisateur qualif

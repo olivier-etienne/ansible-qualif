@@ -1,0 +1,18 @@
+---
+# This playbook contains time plays
+
+- name: Setting up ntp servers configuration
+  lineinfile: >
+    dest=/etc/ntp.conf
+    regexp="{{ item.regexp }}"
+    line="{{ item.line }}"
+  with_items:
+    "{{ ntp_servers }}"
+  become: yes
+
+- name: Restart the ntp service
+  service: >
+    name=ntp
+    state=restarted
+    sleep=3
+  become: yes

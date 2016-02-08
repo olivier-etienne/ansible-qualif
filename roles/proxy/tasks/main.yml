@@ -1,0 +1,36 @@
+---
+# This playbook contains proxy plays
+
+- name: Config environment proxy
+  template: >
+    src={{ environment_config_template }}
+    dest={{ environment_config_file }}
+  become: yes
+
+- name: Config apt proxy
+  template: >
+    src={{ apt_config_template }}
+    dest={{ apt_config_file }}
+  become: yes
+
+- name: Copy cntlm deb on remote
+  copy: >
+    src={{ deb_cntlm_package }}
+    dest=/home/{{ user }}/{{ deb_cntlm_package }}
+
+- name: Install cntlm deb
+  apt: deb=/home/{{ user }}/{{ deb_cntlm_package }}
+  become: yes
+
+- name: Setting up cntlm configuration
+  template: >
+    src={{ cntlm_config_template }}
+    dest={{ cntlm_config_file }}
+  become: yes
+
+- name: Restart the cntlm service
+  service: >
+    name=cntlm
+    state=restarted
+    sleep=3
+  become: yes
