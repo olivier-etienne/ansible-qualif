@@ -1,5 +1,5 @@
 ---
-# This playbook deploys the whole application stack in this site.  
+# This playbook install common tools and configure Orange proxy and time
 
 - name: apply common configuration to all nodes
   hosts: qualif
@@ -9,3 +9,5 @@
 
   roles:
     - common
+    - proxy
+    - time
