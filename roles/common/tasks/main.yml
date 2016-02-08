@@ -10,7 +10,12 @@
   become: yes
 
 - name: Create qualif user in sudo group
-  user: name=qualif comment="Qualif" group=sudo
+  user: >
+    name=qualif
+    shell=/bin/bash
+    home=/home/qualif
+    group=sudo
+    password=$6$v76z5Vp8MQ5y6m$vW5yLTCcVPI97OW6p659N/zlT/MEzUsz81m1kd7uBS7sLjPL19j5Bwks3wwrZGentM4IL9ZK1btwMTSk7KBiB/
   become: yes
 
 
@@ -46,15 +51,6 @@
 
 - name: Install ntp
   apt: name=ntp state=present
-  become: yes
-
-- name: Setting up ntp servers configuration
-  lineinfile: >
-    dest=/etc/ntp.conf
-    regexp="{{ item.regexp }}"
-    line="{{ item.line }}"
-  with_items:
-    "{{ ntp_servers }}"
   become: yes
 
 - name: Start the ntp service
