@@ -1,11 +1,35 @@
 ---
-# This playbook contains time plays
+# This playbook will configure Orange time
+
+- name: Start the ntp service
+  service: >
+    name=ntp
+    state=started
+    enabled=true
+  become: yes
+
+- name: Set local timezone
+  copy: >
+    content={{ timezone }}
+    dest=/etc/timezone
+  become: yes
+
+- name: Update tzdata
+  command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+  become: yes
+
+- name: Remove old ntp servers configuration
+  lineinfile: >
+    dest=/etc/ntp.conf
+    regexp="#FT-NTP-Server$"
+    state=absent
+  become: yes
 
 - name: Setting up ntp servers configuration
   lineinfile: >
     dest=/etc/ntp.conf
-    regexp="{{ item.regexp }}"
-    line="{{ item.line }}"
+    line="{{ item.server }}"
+    insertafter=EOF
   with_items:
     "{{ ntp_servers }}"
   become: yes

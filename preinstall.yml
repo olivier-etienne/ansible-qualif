@@ -1,0 +1,13 @@
+---
+# This playbook install main tools and configure Orange proxy / time
+
+- name: Install main tools and configure Orange proxy / time
+  hosts: qualif
+  remote_user: qualif
+  become_user: root
+  become_method: su
+
+  roles:
+    # - preinstall
+    # - proxy
+    - time

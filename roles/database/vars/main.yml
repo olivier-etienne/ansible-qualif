@@ -1,0 +1,6 @@
+---
+
+streammanager_database_name: MyTVTools_dev
+streammanager_database_user: test
+streammanager_database_password: univers
+streammanager_sql: stream-manager.sql

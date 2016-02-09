@@ -4,21 +4,26 @@
 
 Serveur
 
-  - Installer debian sur le serveur
-  - apt-get update && apt-get upgrade
-  - Installer sudo sur le serveur
-    https://packages.debian.org/fr/jessie/amd64/sudo/download
-  - Créer un utilisateur qualif
-    adduser qualif && adduser qualif sudo
-
+	- Installer debian sur le serveur
+	- Créer un utilisateur qualif
+		adduser qualif
 
 Local
 
 	- Installer ansible
-	- Générez clefs privée/publique SSH
-	  ssh-keygen
-	- Copier la clé publique sur le serveur
-	  ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
-	- Créer le fichier /etc/ansible/hosts en entrer l'adresse ip du serveur
-	- Tester que le serveur soit bien accessible depuis ansible
-	  ansible all -m ping -u qualif
+		http://docs.ansible.com/ansible/intro_installation.html
+	- Générez clefs privée/publique SSH (sans pass)
+		ssh-keygen
+	- Copier la clé publique sur les serveurs cibles (debug et qualif)
+		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
+	- Tester que les serveurs soit bien accessible depuis ansible
+		ansible all -m ping -u qualif
+		ansible all -m ping -u debug
+	- Configurer le fichier hosts avec les bonnes adresses IP des serveurs
+	- Assurer vous d'avoir un connection valide à internet sur les serveurs
+	- Lancer le script de pre-installation des serveurs (commenter les rôles proxy et time si hors réseau orange)
+		ansible-playbook -i hosts preinstall.yml --ask-become-pass
+	- Lancer le script d'installtion du serveur debug
+		ansible-playbook -i hosts debug.yml --ask-become-pass
+	- Lancer le script d'installtion du serveur debug
+		ansible-playbook -i hosts qualif.yml --ask-become-pass

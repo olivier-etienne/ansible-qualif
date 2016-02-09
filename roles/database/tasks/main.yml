@@ -1,0 +1,42 @@
+---
+# This playbook will create databases, users and manage permissions
+
+#########
+# Start #
+#########
+
+- name: Start Mysql Service
+  service: >
+    name=mysql
+    state=started
+    enabled=yes
+  become: yes
+
+
+##################
+# stream-manager #
+##################
+
+- name: Create stream-manager user
+  mysql_user: >
+    name={{ streammanager_database_user }}
+    password={{ streammanager_database_password }}
+    priv=*.*:ALL host='%'
+    state=present
+  become: yes
+
+- name: Create stream-manager database
+  mysql_db: name={{ streammanager_database_name }} state=present
+  become: yes
+
+- name: Create stream-manager tables
+  copy: >
+    src={{ streammanager_sql }}
+    dest=/home/{{ user }}
+
+- name: Create stream-manager tables
+  mysql_db: >
+    state=import
+    name={{ streammanager_database_name }}
+    target=/home/{{ user }}/{{ streammanager_sql }}
+  become: yes

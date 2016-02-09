@@ -1,0 +1,13 @@
+[Unit]
+Description=Multicat Supervisor
+After=mysql.service
+ConditionPathExists={{ multicat_supervisor_script }}
+
+[Service]
+Type=oneshot
+ExecStart={{ multicat_supervisor_script }} start
+ExecStop={{ multicat_supervisor_script }} stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,19 @@
+---
+
+streammanager_path: /usr/local/multicat-tools
+streammanager_src_path: /usr/local/multicat-tools/src
+
+multicat_supervisor_url: https://github.com/orange-tv-blagnac/multicat-supervisor.git
+multicat_supervisor_src_path: /usr/local/multicat-tools/src/multicat-supervisor
+multicat_supervisor_script: /usr/local/multicat-tools/sh/multicat-supervisor.sh
+multicat_supervisor_service_template: multicat-supervisor.service.j2
+
+bitstream_url: https://get.videolan.org/bitstream/1.1/bitstream-1.1.tar.bz2
+bitstream_archive_name: bitstream-1.1.tar.bz2
+bitstream_src_path: /usr/local/multicat-tools/src/bitstream-1.1
+
+database_host: localhost
+database_username: test
+database_password: univers
+database_name: MyTVTools_dev
+network_ttl: 0

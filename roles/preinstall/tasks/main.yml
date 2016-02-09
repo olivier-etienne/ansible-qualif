@@ -1,0 +1,93 @@
+---
+# This playbook will install main tools
+
+########
+# User #
+########
+
+- name: Install sudo (update cache first)
+  apt: name=sudo state=present update_cache=yes
+  become: yes
+
+- name: Create qualif user in sudo group
+  user: >
+    name=qualif
+    shell=/bin/bash
+    home=/home/qualif
+    group=sudo
+    password=$6$v76z5Vp8MQ5y6m$vW5yLTCcVPI97OW6p659N/zlT/MEzUsz81m1kd7uBS7sLjPL19j5Bwks3wwrZGentM4IL9ZK1btwMTSk7KBiB/
+  become: yes
+
+
+#########
+# Proxy #
+#########
+
+- name: Install cntlm
+  apt: name=cntlm state=present
+  become: yes
+
+
+########
+# Time #
+########
+
+- name: Install ntp
+  apt: name=ntp state=present
+  become: yes
+
+
+##############
+# Subversion #
+##############
+
+- name: Install svn
+  apt: name=subversion state=present
+  become: yes
+
+- name: Install git
+  apt: name=git-core state=present
+  become: yes
+
+
+##############
+# Web server #
+##############
+
+- name: Install apache2
+  apt: name=apache2 state=present
+  become: yes
+
+
+############
+# Database #
+############
+
+- name: Install mysql-server
+  apt: name={{ item }} state=present
+  with_items:
+   - mysql-server
+   - python-mysqldb
+  become: yes
+
+- name: Install phpmyadmin
+  apt: name=phpmyadmin state=present
+  become: yes
+
+
+##################
+# Stream-manager #
+##################
+
+- name: Install dev package
+  apt: name=build-essential state=present
+  become: yes
+
+- name: Install librairies for multicat-supervisor
+  apt: name={{item}} state=installed
+  with_items:
+    - build-essential
+    - libjson-c-dev
+    - libmysqlclient-dev
+    - libxml2-dev
+  become: yes

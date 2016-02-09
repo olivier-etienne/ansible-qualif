@@ -1,11 +1,13 @@
 ---
 # This playbook install whole qualif bench
 
-- name: apply common configuration to all nodes
+- name: apply qualif configuration
   hosts: qualif
   remote_user: qualif
   become_user: root
   become_method: su
 
   roles:
+    - database
+    - phpmyadmin
     - streammanager

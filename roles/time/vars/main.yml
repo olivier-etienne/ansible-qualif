@@ -2,10 +2,10 @@
 
 # List of Orange ntp servers
 ntp_servers:
-  - { regexp: "# Specify one or more NTP servers.", line: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - { regexp: "# Specify one or more NTP servers.", line: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }

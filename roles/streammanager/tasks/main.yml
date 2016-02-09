@@ -1,0 +1,102 @@
+---
+# This playbook will install stream-manager
+
+#######################
+# multicat-supervisor #
+#######################
+
+- name: Create multicat-supervisor src directory
+  file: path={{ streammanager_src_path }} state=directory
+  become: yes
+
+- name: Clone multicat-supervisor repository
+  git: >
+    repo={{ multicat_supervisor_url }}
+    dest={{ multicat_supervisor_src_path }}
+  become: yes
+
+
+#############
+# bitstream #
+#############
+
+- name: Get bitstream library
+  command: "wget {{ bitstream_url }} -O {{ streammanager_src_path }}/{{ bitstream_archive_name }}"
+  become: yes
+
+- name: Creates bitstream directory
+  file: path={{ bitstream_src_path }} state=directory
+  become: yes
+
+- name: Extract bitstream library
+  unarchive: >
+    src={{ streammanager_src_path }}/{{ bitstream_archive_name }}
+    dest={{ streammanager_src_path }}
+    copy=no
+  become: yes
+
+- name: Install bitstream library
+  command: chdir={{ bitstream_src_path }} {{ item }}
+  with_items:
+    - /usr/bin/make install
+  become: yes
+
+
+##########
+# Config #
+##########
+
+- name: Config stream manager database host
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^host=$'
+    replace='host={{ database_host }}'
+  become: yes
+
+- name: Config stream manager database username
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^username=$'
+    replace='username={{ database_username }}'
+  become: yes
+
+- name: Config streammanager database password
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^password=$'
+    replace='password={{ database_password }}'
+  become: yes
+
+- name: Config stream manager database name
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^database=$'
+    replace='database={{ database_name }}'
+  become: yes
+
+- name: Config stream manager database ttl
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^ttl=$'
+    replace='ttl={{ network_ttl }}'
+  become: yes
+
+
+#########
+# Start #
+#########
+
+- name: Compile and install multicat-supervisor
+  command: chdir={{ multicat_supervisor_src_path }} {{ item }}
+  with_items:
+    - /usr/bin/make clean
+    - /usr/bin/make install
+  become: yes
+
+- name: Create multicat-supervisor service
+  template: >
+    src={{ multicat_supervisor_service_template }}
+    dest=/etc/systemd/system/multicat-supervisor.service
+  become: yes
+
+- name: Enable and start multicat-supervisor service
+  service: >
+    name=multicat-supervisor.service
+    state=started
+    enabled=true
+  become: yes

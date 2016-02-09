@@ -1,5 +1,12 @@
 ---
-# This playbook contains proxy plays
+# This playbook will configure Orange proxy
+
+- name: Start the cntlm service
+  service: >
+    name=cntlm
+    state=started
+    enabled=true
+  become: yes
 
 - name: Config environment proxy
   template: >

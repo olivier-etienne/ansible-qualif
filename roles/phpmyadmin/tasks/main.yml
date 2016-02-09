@@ -1,0 +1,13 @@
+---
+# This playbook will enable phpmyadmin
+
+##########
+# Config #
+##########
+
+- name: Create symlink for phpmyadmin
+  file: >
+    src=/usr/share/phpmyadmin/
+    dest=/var/www/html/phpmyadmin
+    state=link
+  become: yes
