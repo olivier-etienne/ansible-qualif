@@ -7,7 +7,7 @@
 
 - name: Create symlink for phpmyadmin
   file: >
-    src=/usr/share/phpmyadmin/
-    dest=/var/www/html/phpmyadmin
+    src={{ phpmyadmin_src_path }}
+    dest={{ phpmyadmin_dest_path }}
     state=link
   become: yes

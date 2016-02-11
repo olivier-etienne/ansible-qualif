@@ -11,3 +11,5 @@
     - database
     - phpmyadmin
     - streammanager
+    - standalone
+    - nas

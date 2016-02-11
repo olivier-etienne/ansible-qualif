@@ -1,0 +1,10 @@
+---
+
+standalone_path: /home/standalone
+standalone_script: /home/standalone/run.sh
+standalone_service_template: standalone.service.j2
+standalone_service_path: /etc/systemd/system/standalone.service
+standalone_service_name: standalone.service
+
+latest_standalone_name: newtv-standalone-1.0.5-SNAPSHOT-all.zip
+latest_standalone_url: http://10.185.111.250:8080/view/standalone/job/standalone/lastSuccessfulBuild/artifact/target/newtv-standalone-1.0.5-SNAPSHOT-all.zip

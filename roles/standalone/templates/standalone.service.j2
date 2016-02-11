@@ -1,0 +1,14 @@
+[Unit]
+Description=Standalone
+After=mysql.service
+ConditionPathExists={{ standalone_script }}
+
+[Service]
+Type=oneshot
+User=qualif
+ExecStart={{ standalone_script }} start
+ExecStop={{ standalone_script }} stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

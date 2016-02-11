@@ -9,13 +9,13 @@
   apt: name=sudo state=present update_cache=yes
   become: yes
 
-- name: Create qualif user in sudo group
+- name: Create qualif user with sudo group
   user: >
     name=qualif
     shell=/bin/bash
     home=/home/qualif
     group=sudo
-    password=$6$v76z5Vp8MQ5y6m$vW5yLTCcVPI97OW6p659N/zlT/MEzUsz81m1kd7uBS7sLjPL19j5Bwks3wwrZGentM4IL9ZK1btwMTSk7KBiB/
+    password={{ qualif_user_password }}
   become: yes
 
 
@@ -54,8 +54,12 @@
 # Web server #
 ##############
 
-- name: Install apache2
+- name: Install apache
   apt: name=apache2 state=present
+  become: yes
+
+- name: Install tomcat
+  apt: name=tomcat8 state=present
   become: yes
 
 

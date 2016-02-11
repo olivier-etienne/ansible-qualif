@@ -1,0 +1,52 @@
+---
+# This playbook will install stream-manager
+
+
+#########################
+# Get latest standalone #
+#########################
+
+- name: Create standalone directory
+  file: >
+    path={{ standalone_path }}
+    state=directory
+    owner=qualif
+    group=qualif
+  become: yes
+
+- name: Get latest standalone build
+  get_url: >
+    url={{ latest_standalone_url }}
+    dest={{ standalone_path }}
+
+
+######################
+# Extract standalone #
+######################
+
+- name: Extract standalone
+  unarchive: >
+    src={{ standalone_path }}/{{ latest_standalone_name }}
+    dest={{ standalone_service_path }}
+    owner=qualif
+    group=qualif
+    copy=no
+  become: yes
+
+
+###############################
+# Enable and start standalone #
+###############################
+
+- name: Create standalone service
+  template: >
+    src={{ standalone_service_template }}
+    dest={{ standalone_service_path }}
+  become: yes
+
+- name: Enable standalone service
+  service: >
+    name={{ standalone_service_name }}
+    state=started
+    enabled=true
+  become: yes

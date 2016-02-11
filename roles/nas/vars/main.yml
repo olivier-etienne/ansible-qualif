@@ -1,0 +1,6 @@
+---
+
+nas_path: /mnt/nas
+nas_src: 10.185.110.178:/volume1/NetBackup/
+nas_type: nfs
+nas_options: "nouser,rsize=8192,wsize=8192,atime,auto,rw,dev,exec,suid"

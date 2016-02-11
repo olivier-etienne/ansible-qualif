@@ -5,8 +5,11 @@ streammanager_src_path: /usr/local/multicat-tools/src
 
 multicat_supervisor_url: https://github.com/orange-tv-blagnac/multicat-supervisor.git
 multicat_supervisor_src_path: /usr/local/multicat-tools/src/multicat-supervisor
+multicat_supervisor_config_file: multicat.ini
 multicat_supervisor_script: /usr/local/multicat-tools/sh/multicat-supervisor.sh
 multicat_supervisor_service_template: multicat-supervisor.service.j2
+multicat_supervisor_service_path: /etc/systemd/system/multicat-supervisor.service
+multicat_supervisor_service_name: multicat-supervisor.service
 
 bitstream_url: https://get.videolan.org/bitstream/1.1/bitstream-1.1.tar.bz2
 bitstream_archive_name: bitstream-1.1.tar.bz2

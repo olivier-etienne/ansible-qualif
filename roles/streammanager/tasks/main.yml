@@ -1,6 +1,16 @@
 ---
 # This playbook will install stream-manager
 
+##################
+# stream-manager #
+##################
+
+# TODO when open source
+# - clone github streammanager
+# - compile war with database config
+# - copy war into tomcat8 webapps folder
+
+
 #######################
 # multicat-supervisor #
 #######################
@@ -48,31 +58,31 @@
 
 - name: Config stream manager database host
   replace: >
-    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^host=$'
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^host=$'
     replace='host={{ database_host }}'
   become: yes
 
 - name: Config stream manager database username
   replace: >
-    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^username=$'
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^username=$'
     replace='username={{ database_username }}'
   become: yes
 
 - name: Config streammanager database password
   replace: >
-    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^password=$'
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^password=$'
     replace='password={{ database_password }}'
   become: yes
 
 - name: Config stream manager database name
   replace: >
-    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^database=$'
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^database=$'
     replace='database={{ database_name }}'
   become: yes
 
 - name: Config stream manager database ttl
   replace: >
-    dest={{ multicat_supervisor_src_path }}/multicat.ini regexp='^ttl=$'
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^ttl=$'
     replace='ttl={{ network_ttl }}'
   become: yes
 
@@ -91,12 +101,12 @@
 - name: Create multicat-supervisor service
   template: >
     src={{ multicat_supervisor_service_template }}
-    dest=/etc/systemd/system/multicat-supervisor.service
+    dest={{ multicat_supervisor_service_path }}
   become: yes
 
 - name: Enable and start multicat-supervisor service
   service: >
-    name=multicat-supervisor.service
+    name={{ multicat_supervisor_service_name }}
     state=started
     enabled=true
   become: yes

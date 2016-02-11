@@ -1,0 +1,17 @@
+---
+# This playbook will mount nas
+
+- name: Create nas directory
+  file: >
+    path={{ nas_path }}
+    state=directory
+  become: yes
+
+- name: Set nas mounting point
+  mount: >
+    name={{ nas_path }}
+    src={{ nas_src }}
+    fstype={{ nas_type }}
+    opts={{ nas_options }}
+    state=mounted
+  become: yes
