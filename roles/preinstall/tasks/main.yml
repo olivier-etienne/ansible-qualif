@@ -95,3 +95,36 @@
     - libmysqlclient-dev
     - libxml2-dev
   become: yes
+
+
+# ##########
+# # Java 8 #
+# ##########
+
+- name: Add java 8 ppa
+  template: >
+    src={{ webupd8team_java_list_template }}
+    dest={{ webupd8team_java_list_path }}
+  become: yes
+
+- name: Add java 8 keyserver
+  apt_key: >
+    keyserver=keyserver.ubuntu.com
+    id=EEA14886
+  become: yes
+
+- name: Accept java 8 license before install
+  debconf: >
+    name='oracle-java8-installer'
+    question='shared/accepted-oracle-license-v1-1'
+    value='true'
+    vtype='select'
+  become: yes
+
+- name: Install java 8 (update cache first)
+  apt: >
+    name=oracle-java8-installer
+    state=present
+    force=yes
+    update_cache=yes
+  become: yes

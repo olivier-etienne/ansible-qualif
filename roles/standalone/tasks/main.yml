@@ -14,20 +14,10 @@
     group=qualif
   become: yes
 
-- name: Get latest standalone build
-  get_url: >
-    url={{ latest_standalone_url }}
-    dest={{ standalone_path }}
-
-
-######################
-# Extract standalone #
-######################
-
-- name: Extract standalone
+- name: Download and extract standalone
   unarchive: >
-    src={{ standalone_path }}/{{ latest_standalone_name }}
-    dest={{ standalone_service_path }}
+    src={{ standalone_url }}
+    dest={{ standalone_path }}
     owner=qualif
     group=qualif
     copy=no

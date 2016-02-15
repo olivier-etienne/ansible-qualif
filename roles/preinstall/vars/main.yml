@@ -1,3 +1,6 @@
 ---
 
 qualif_user_password: $6$v76z5Vp8MQ5y6m$vW5yLTCcVPI97OW6p659N/zlT/MEzUsz81m1kd7uBS7sLjPL19j5Bwks3wwrZGentM4IL9ZK1btwMTSk7KBiB/
+
+webupd8team_java_list_template: webupd8team-java.list.j2
+webupd8team_java_list_path: /etc/apt/sources.list.d/webupd8team-java.list

@@ -1,0 +1,14 @@
+[Unit]
+Description=Serviio
+ConditionPathExists={{ serviio_script }}
+After=network.target
+
+[Service]
+Type=simple
+User=qualif
+ExecStart={{ serviio_script }}
+ExecStop={{ serviio_script }} -stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

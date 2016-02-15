@@ -1,0 +1,26 @@
+---
+# This playbook will install serviio
+
+###################
+# Install serviio #
+###################
+
+- name: Download and extract serviio
+  unarchive: >
+    src={{ serviio_url }}
+    dest={{ serviio_path }}
+    copy=no
+  become: yes
+
+- name: Create serviio service
+  template: >
+    src={{ serviio_service_template }}
+    dest={{ serviio_service_path }}
+  become: yes
+
+- name: Enable and start serviio service
+  service: >
+    name={{ serviio_service_name }}
+    state=started
+    enabled=true
+  become: yes
