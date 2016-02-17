@@ -127,4 +127,24 @@
     state=present
     force=yes
     update_cache=yes
+
+
+###########
+# Jenkins #
+###########
+
+- name: Wget key
+  get_url: url=https://jenkins-ci.org/debian/jenkins-ci.org.key dest=./jenkins-ci.org.key
+  become: yes
+
+- name: Add key
+  command: apt-key add jenkins-ci.org.key
+  become: yes
+
+- name: Add repository
+  command: sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
+  become: yes
+
+- name: Install Jenkins
+  apt: name=jenkins state=present update_cache=yes
   become: yes
