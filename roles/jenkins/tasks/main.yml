@@ -1,0 +1,15 @@
+---
+# This playbook will enable jenkins
+
+##########
+# Config #
+##########
+
+- name: Copy Jenkins configuration
+
+- name: Restart the Jenkins service
+  service: >
+    name=jenkins
+    state=restarted
+    sleep=5
+  become: yes
