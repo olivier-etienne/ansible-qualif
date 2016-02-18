@@ -1,0 +1,14 @@
+---
+# This playbook will create databases, users and manage permissions
+
+
+- name: Add cron job for root user
+  cron: >
+    name="{{ item.name }}"
+    minute="{{ item.minute }}"
+    hour="{{ item.hour }}"
+    job="{{ item.job }}"
+    user="root"
+  with_items:
+    "{{ cron_jobs }}"
+  become: yes

@@ -15,3 +15,14 @@
     opts={{ nas_options }}
     state=mounted
   become: yes
+
+- name: Create backup nas script directory
+  file: >
+    path={{ nas_backup_script_path }}
+    state=directory
+
+- name: Copy nas backup script
+  copy: >
+    src={{ nas_backup_script }}
+    dest={{ nas_backup_script_path }}
+    mode=755
