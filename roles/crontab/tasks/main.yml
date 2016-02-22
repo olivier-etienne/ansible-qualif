@@ -1,5 +1,5 @@
 ---
-# This playbook will create databases, users and manage permissions
+# This playbook will create cron jobs
 
 
 - name: Add cron job for root user
