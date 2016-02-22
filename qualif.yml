@@ -14,5 +14,6 @@
     - standalone
     - nas
     - serviio
-    - crontab
     - apache
+    - programtv
+    - crontab
