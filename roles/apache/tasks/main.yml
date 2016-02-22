@@ -1,0 +1,41 @@
+---
+# This playbook will configure apache
+
+- name: Enable mods
+  command: a2enmod {{ item.mod }}
+  with_items:
+    "{{ apache_mods }}"
+  become: yes
+
+- name: Create apache ssl directory
+  file: >
+    path={{ apache_ssl_path }}
+    state=directory
+  become: yes
+
+- name: Copy apache ssl certificate
+  copy: >
+    src={{ apache_ssl_certificate }}
+    dest={{ apache_ssl_path }}
+  become: yes
+
+- name: Copy default conf files
+  copy: >
+    src={{ item.site }}
+    dest={{ apache_sites_path }}
+  with_items:
+    "{{ apache_sites }}"
+  become: yes
+
+- name: Enable conf files
+  command: a2ensite {{ item.site }}
+  with_items:
+    "{{ apache_sites }}"
+  become: yes
+
+- name: Restart apache2 Service
+  service: >
+    name=apache2
+    state=restarted
+    sleep=3
+  become: yes

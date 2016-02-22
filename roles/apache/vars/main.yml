@@ -1,0 +1,35 @@
+---
+
+apache_sites_path: /etc/apache2/sites-available
+
+apache_ssl_path: /etc/apache2/ssl
+apache_ssl_certificate: apache.pem
+
+# List of apache sites
+apache_sites:
+  - {site: "000-default.conf"}
+  - {site: "awstats.conf"}
+  - {site: "default-ssl.conf"}
+  - {site: "svnserver.conf"}
+
+# List of apache mods
+apache_mods:
+  - {mod: "actions"}
+  - {mod: "authz_groupfile"}
+  - {mod: "authz_svn"}
+  - {mod: "cgi"}
+  - {mod: "cgid"}
+  - {mod: "charset_lite"}
+  - {mod: "dav"}
+  - {mod: "dav_svn"}
+  - {mod: "dump_io"}
+  - {mod: "headers"}
+  - {mod: "mime_magic"}
+  - {mod: "proxy_http"}
+  - {mod: "proxy"}
+  - {mod: "reqtimeout"}
+  - {mod: "rewrite"}
+  - {mod: "socache_shmcb"}
+  - {mod: "ssl"}
+  - {mod: "userdir"}
+  - {mod: "vhost_alias"}

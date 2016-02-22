@@ -58,6 +58,10 @@
   apt: name=apache2 state=present
   become: yes
 
+- name: Install library apache svn
+  apt: name=libapache2-svn state=present
+  become: yes
+
 - name: Install tomcat
   apt: name=tomcat8 state=present
   become: yes
