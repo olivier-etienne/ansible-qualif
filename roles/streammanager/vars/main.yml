@@ -16,7 +16,7 @@ bitstream_archive_name: bitstream-1.1.tar.bz2
 bitstream_src_path: /usr/local/multicat-tools/src/bitstream-1.1
 
 database_host: localhost
-database_username: test
-database_password: univers
-database_name: MyTVTools_dev
+database_username: username
+database_password: password
+database_name: dbname
 network_ttl: 0
