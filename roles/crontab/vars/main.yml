@@ -3,7 +3,5 @@
 # List of root cron jobs
 cron_jobs:
   - {name: "Backup sur le NAS", minute: "0", hour: "18", job: "/home/qualif/Bureau/SAVE_TO_NAS/saveToNas.sh > /dev/null"}
-  - {name: "Program TV", minute: "45", hour: "22", job: "cp /home/qualif/Bureau/programmeTV/programmeTV.txt /home/standalone/www/FR/ProgramTV > /dev/null 2>&1"}
-  - {name: "Program TV (suite)", minute: "0", hour: "06", job: "/home/qualif/Bureau/programmeTV/programmeTV.sh > /dev/null 2>&1"}
   - {name: "Remove old screenshot + move screenshot", minute: "0", hour: "19", job: "find /var/lib/jenkins/screenshotOnFailure/ -mtime +7 -type d -delete > /var/lib/jenkins/cleanScreenshotOnFailure.log 2>&1"}
   - {name: "Nettoyage des plans de service", minute: "0", hour: "0", job: "find /var/www/karma/download/serviceplan/* -maxdepth 0 -mtime +1 -type d -exec rm -rf {} \\; > /dev/null 2>&1"}
