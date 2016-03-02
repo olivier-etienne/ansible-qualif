@@ -1,6 +1,24 @@
 ---
 # This playbook will mount nas
 
+- name: Unmount existing nas
+  mount: >
+    name={{ nas_path }}
+    src={{ nas_src }}
+    fstype={{ nas_type }}
+    opts={{ nas_options }}
+    state=unmounted
+  become: yes
+
+- name: Remove existing nas entry
+  mount: >
+    name={{ nas_path }}
+    src={{ nas_src }}
+    fstype={{ nas_type }}
+    opts={{ nas_options }}
+    state=absent
+  become: yes
+
 - name: Create nas directory
   file: >
     path={{ nas_path }}

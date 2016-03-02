@@ -33,6 +33,10 @@
     "{{ apache_sites }}"
   become: yes
 
+- name: Restore www directory from nas
+  command: cp -R {{ apache_www_nas_path }} {{ var_path }}
+  become: yes
+
 - name: Restart apache2 Service
   service: >
     name=apache2

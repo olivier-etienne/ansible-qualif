@@ -6,6 +6,7 @@
 ##########
 
 - name: Copy Jenkins configuration
+  # TO DO
 
 - name: Restart the Jenkins service
   service: >

@@ -5,7 +5,7 @@
   service: >
     name=ntp
     state=started
-    enabled=true
+    enabled=yes
   become: yes
 
 - name: Set local timezone

@@ -15,8 +15,12 @@
 # multicat-supervisor #
 #######################
 
+- name: Remove existing multicat-supervisor directory
+  file: path={{ multicat_supervisor_path }} state=absent
+  become: yes
+
 - name: Create multicat-supervisor src directory
-  file: path={{ streammanager_src_path }} state=directory
+  file: path={{ multicat_supervisor_src_dir_path }} state=directory
   become: yes
 
 - name: Clone multicat-supervisor repository
@@ -30,8 +34,8 @@
 # bitstream #
 #############
 
-- name: Get bitstream library
-  command: "wget {{ bitstream_url }} -O {{ streammanager_src_path }}/{{ bitstream_archive_name }}"
+- name: Get bitstream library (get_url don't work with https)
+  command: "wget {{ bitstream_url }} -O {{ multicat_supervisor_src_dir_path }}/{{ bitstream_archive_name }}"
   become: yes
 
 - name: Creates bitstream directory
@@ -40,8 +44,8 @@
 
 - name: Extract bitstream library
   unarchive: >
-    src={{ streammanager_src_path }}/{{ bitstream_archive_name }}
-    dest={{ streammanager_src_path }}
+    src={{ multicat_supervisor_src_dir_path }}/{{ bitstream_archive_name }}
+    dest={{ multicat_supervisor_src_dir_path }}
     copy=no
   become: yes
 
@@ -98,15 +102,32 @@
     - /usr/bin/make install
   become: yes
 
+- name: Create videos multicat directory
+  file: >
+    path={{ multicat_supervisor_videos_path }}
+    state=directory
+  become: yes
+
+- name: Restore videos multicat directory from nas
+  command: cp -R {{ multicat_supervisor_videos_nas_path }} {{ multicat_supervisor_path }}
+  become: yes
+
 - name: Create multicat-supervisor service
   template: >
     src={{ multicat_supervisor_service_template }}
     dest={{ multicat_supervisor_service_path }}
   become: yes
 
+- name: Stop and disable existing multicat-supervisor service
+  service: >
+    name={{ multicat_supervisor_service_name }}
+    state=stopped
+    enabled=no
+  become: yes
+
 - name: Enable and start multicat-supervisor service
   service: >
     name={{ multicat_supervisor_service_name }}
     state=started
-    enabled=true
+    enabled=yes
   become: yes

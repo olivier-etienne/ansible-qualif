@@ -5,10 +5,16 @@
 # Install serviio #
 ###################
 
+- name: Remove existing serviio directory
+  file: >
+    path={{ serviio_path }}
+    state=absent
+  become: yes
+
 - name: Download and extract serviio
   unarchive: >
     src={{ serviio_url }}
-    dest={{ serviio_path }}
+    dest={{ lib_path }}
     copy=no
   become: yes
 
@@ -18,9 +24,32 @@
     dest={{ serviio_service_path }}
   become: yes
 
+- name: Remove existing media serviio directory
+  file: >
+    path={{ seriio_media_path }}
+    state=absent
+  become: yes
+
+- name: Create media serviio directory
+  file: >
+    path={{ seriio_media_path }}
+    state=directory
+  become: yes
+
+- name: Restore servios directory from nas
+  command: cp -R {{ seriio_media_nas_path }} {{ var_path }}
+  become: yes
+
+- name: Stop and disable existing serviio service
+  service: >
+    name={{ serviio_service_name }}
+    state=stopped
+    enabled=no
+  become: yes
+
 - name: Enable and start serviio service
   service: >
     name={{ serviio_service_name }}
     state=started
-    enabled=true
+    enabled=yes
   become: yes

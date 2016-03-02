@@ -1,5 +1,8 @@
 ---
 
+var_path: /var
+apache_www_nas_path: /mnt/nas/banc_qualif/var/www
+
 apache_sites_path: /etc/apache2/sites-available
 
 apache_ssl_path: /etc/apache2/ssl

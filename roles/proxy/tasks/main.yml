@@ -5,7 +5,7 @@
   service: >
     name=cntlm
     state=started
-    enabled=true
+    enabled=yes
   become: yes
 
 - name: Config environment proxy

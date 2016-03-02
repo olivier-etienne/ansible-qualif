@@ -1,4 +1,4 @@
 ---
 
 phpmyadmin_src_path: /usr/share/phpmyadmin/
-phpmyadmin_dest_path: /var/www/html/phpmyadmin
+phpmyadmin_dest_path: /var/www/phpmyadmin

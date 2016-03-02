@@ -6,6 +6,12 @@
 # Get latest standalone #
 #########################
 
+- name: Remove existing standalone directory
+  file: >
+    path={{ standalone_path }}
+    state=absent
+  become: yes
+
 - name: Create standalone directory
   file: >
     path={{ standalone_path }}
@@ -34,9 +40,16 @@
     dest={{ standalone_service_path }}
   become: yes
 
+- name: Stop and disable existing standalone service
+  service: >
+    name={{ standalone_service_name }}
+    state=stopped
+    enabled=no
+  become: yes
+
 - name: Enable standalone service
   service: >
     name={{ standalone_service_name }}
     state=started
-    enabled=true
+    enabled=yes
   become: yes

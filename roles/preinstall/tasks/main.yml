@@ -9,12 +9,16 @@
   apt: name=sudo state=present update_cache=yes
   become: yes
 
-- name: Create qualif user with sudo group
+- name: Create qualif group
+  group: name=qualif state=present
+  become: yes
+
+- name: Create qualif user
   user: >
     name=qualif
     shell=/bin/bash
     home=/home/qualif
-    group=sudo
+    groups=qualif,sudo
     password={{ qualif_user_password }}
   become: yes
 
@@ -101,9 +105,9 @@
   become: yes
 
 
-# ##########
-# # Java 8 #
-# ##########
+##########
+# Java 8 #
+##########
 
 - name: Add java 8 ppa
   template: >
@@ -131,6 +135,7 @@
     state=present
     force=yes
     update_cache=yes
+  become: yes
 
 
 ###########
@@ -151,4 +156,16 @@
 
 - name: Install Jenkins
   apt: name=jenkins state=present update_cache=yes
+  become: yes
+
+
+########
+# Misc #
+########
+
+- name: Install misc tools
+  apt: name={{item}} state=installed
+  with_items:
+    - zip
+    - vim
   become: yes

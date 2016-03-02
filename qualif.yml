@@ -8,11 +8,11 @@
   become_method: su
 
   roles:
+    - nas
     - database
+    - apache
     - phpmyadmin
     - streammanager
     - standalone
-    - nas
     - serviio
-    - apache
     - crontab

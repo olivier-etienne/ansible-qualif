@@ -1,8 +1,12 @@
 ---
 
 serviio_url: http://download.serviio.org/releases/serviio-1.6-linux.tar.gz
-serviio_path: /var/lib
+lib_path: /var/lib
+serviio_path: /var/lib/serviio-1.6
 serviio_script: /var/lib/serviio-1.6/bin/serviio.sh
 serviio_service_template: serviio.service.j2
 serviio_service_path: /etc/systemd/system/serviio.service
 serviio_service_name: serviio.service
+var_path: /var
+seriio_media_path: /var/nas
+seriio_media_nas_path: /mnt/nas/banc_debug/var/nas

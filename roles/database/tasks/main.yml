@@ -17,6 +17,16 @@
 # stream-manager #
 ##################
 
+- name: Remove existing stream-manager user
+  mysql_user: >
+    name={{ streammanager_database_user }}
+    state=absent
+  become: yes
+
+- name: Remove existing stream-manager database
+  mysql_db: name={{ streammanager_database_name }} state=absent
+  become: yes
+
 - name: Create stream-manager user
   mysql_user: >
     name={{ streammanager_database_user }}
