@@ -1,8 +1,9 @@
 ---
 
-####
-#  #
-####
-
 apt_config_template: apt.conf.j2
+
+rsync_options: -am --include='config.xml' --include='nextBuildNumber' --include='*/' --exclude='*'
+
+jenkins_path: /var/lib/jenkins/
+jenkins_nas_path: /mnt/nas/banc_qualif/var/lib/jenkins/
 

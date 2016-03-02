@@ -54,6 +54,31 @@
   become: yes
 
 
+###########
+# Jenkins #
+###########
+
+- name: Add jenkins key
+  apt_key: >
+    url={{ jenkins_key_url }}
+    state=present
+  become: yes
+
+- name: Add jenkins source list
+  template: >
+    src={{ jenkins_list_template }}
+    dest={{ jenkins_list_path }}
+  become: yes
+
+- name: Install Jenkins (update cache first)
+  apt: >
+    name=jenkins
+    state=present
+    force=yes
+    update_cache=yes
+  become: yes
+
+
 ##############
 # Web server #
 ##############
@@ -109,16 +134,17 @@
 # Java 8 #
 ##########
 
-- name: Add java 8 ppa
+- name: Add java 8 source list
   template: >
     src={{ webupd8team_java_list_template }}
     dest={{ webupd8team_java_list_path }}
   become: yes
 
-- name: Add java 8 keyserver
+- name: Add java 8 key
   apt_key: >
-    keyserver=keyserver.ubuntu.com
-    id=EEA14886
+    keyserver={{ webupd8team_java_key_url }}
+    id={{ webupd8team_java_key_id }}
+    state=present
   become: yes
 
 - name: Accept java 8 license before install
@@ -138,27 +164,6 @@
   become: yes
 
 
-###########
-# Jenkins #
-###########
-
-- name: Wget key
-  get_url: url=https://jenkins-ci.org/debian/jenkins-ci.org.key dest=./jenkins-ci.org.key
-  become: yes
-
-- name: Add key
-  command: apt-key add jenkins-ci.org.key
-  become: yes
-
-- name: Add repository
-  command: sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
-  become: yes
-
-- name: Install Jenkins
-  apt: name=jenkins state=present update_cache=yes
-  become: yes
-
-
 ########
 # Misc #
 ########
@@ -168,4 +173,5 @@
   with_items:
     - zip
     - vim
+    - nload
   become: yes

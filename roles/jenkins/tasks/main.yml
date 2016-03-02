@@ -5,12 +5,13 @@
 # Config #
 ##########
 
-- name: Copy Jenkins configuration
-  # TO DO
+- name: Restore jenkins config from nas
+  command: rsync {{ rsync_options }} {{ jenkins_nas_path }} {{ jenkins_path }}
+  become: yes
 
 - name: Restart the Jenkins service
   service: >
     name=jenkins
     state=restarted
-    sleep=5
+    sleep=3
   become: yes

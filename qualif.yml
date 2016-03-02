@@ -9,6 +9,7 @@
 
   roles:
     - nas
+    - jenkins
     - database
     - apache
     - phpmyadmin
