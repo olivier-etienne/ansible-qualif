@@ -1,40 +1,49 @@
-*************
-* PREREQUIS *
-*************
+################
+# Servers side #
+################
 
-Serveur
+	- Install debian jessie on both qualif and debug bench
 
-	- Installer debian sur le serveur
+	- Make sure an user called "qualif" is created
+		adduser qualif
 
-Local
+	- Reboot both qualif and debug bench
 
-	- Installer ansible
+
+##############
+# Local side #
+##############
+
+	- Install ansible
 		http://docs.ansible.com/ansible/intro_installation.html
 
-	- Générez clefs privée/publique SSH (sans pass)
+	- Generate SSH key
 		ssh-keygen
 
-	- Copier la clé publique sur les serveurs cibles (debug et qualif)
+	- Connect qualif/debug bench and your local PC to a valid internet network (without proxy)
+
+	- Copy public SSH key content to qualif/debug bench
 		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
 
-	- Configurer le fichier hosts avec les bonnes adresses IP des serveurs
+	- Edit first row of [debug] / [qualif] group in ansible host file with correct IP address (internet)
 
-	- Tester que les serveurs soit bien accessible depuis ansible
-		ansible all -m ping -u qualif
-		ansible all -m ping -u debug
+	- Edit groups_var/all.yml file with correct information
 
-	- Editer les fichiers de conf ansible avec les bonnes informations
-
-	- Assurer vous d'avoir une connection valide à internet sur les serveurs
-
-	- Lancer le script de pre-installation des serveurs (commenter proxy / time si pas orange)
+	- Run the preinstall script (comment proxy role if your network does not have proxy)
 		ansible-playbook -i hosts preinstall.yml --ask-become-pass
 
-	- Lancer le script d'installation du serveur debug
+	- Connect qualif/debug bench and your local PC to your internal network
+
+	- As IP address changed, copy again public SSH key content to qualif/debug bench
+		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
+
+	- Edit second row of [debug] / [qualif] group in ansible host file with correct IP address (internal)
+
+	- Run the debug script to install debug bench (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts debug.yml --ask-become-pass
 
-	- Lancer le script d'installation du serveur debug
+	- Run the qualif script to install qualif bench  (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts qualif.yml --ask-become-pass
 
-	- Lancer le script de récupération des données (si Orange)
-		ansible-playbook -i hosts restore.yml --ask-become-pass
+	- Reboot debug / qualif bench
+	    shutdown -r now

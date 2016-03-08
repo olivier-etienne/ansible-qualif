@@ -1,0 +1,5 @@
+---
+
+network_interfaces_path: /etc/network/interfaces
+qualif_network_interfaces_template: qualifInterfaces.j2
+debug_network_interfaces_template: debugInterfaces.j2

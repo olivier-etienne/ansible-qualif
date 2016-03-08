@@ -1,5 +1,20 @@
 ---
 
+streammanager_sql: stream-manager.sql
+
+stream_manager_war_path: /var/lib/tomcat8/webapps
+stream_manager_war_name: StreamManager.war
+stream_manager_xml_path: /var/lib/tomcat8/conf/Catalina
+stream_manager_xml_name: StreamManager.xml
+stream_manager_tar_name: streammanager-1.2-SNAPSHOT.tar.gz
+stream_manager_url: https://github.com/orange-tv-blagnac/stream-manager.git
+stream_manager_dir_name: stream-manager
+stream_manager_path: /usr/local/stream-manager
+stream_manager_src_path: /usr/local/stream-manager/src
+
+maven_artifact_command: "mvn install:install-file  -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
+maven_packaging_command: "mvn clean package"
+
 multicat_supervisor_path: /usr/local/multicat-tools
 multicat_supervisor_src_dir_path: /usr/local/multicat-tools/src
 
@@ -16,9 +31,3 @@ multicat_supervisor_service_name: multicat-supervisor.service
 bitstream_url: https://get.videolan.org/bitstream/1.1/bitstream-1.1.tar.bz2
 bitstream_archive_name: bitstream-1.1.tar.bz2
 bitstream_src_path: /usr/local/multicat-tools/src/bitstream-1.1
-
-database_host: localhost
-database_username: username
-database_password: password
-database_name: dbname
-network_ttl: 0

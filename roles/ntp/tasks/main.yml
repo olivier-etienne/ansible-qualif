@@ -11,27 +11,27 @@
 - name: Set local timezone
   copy: >
     content={{ timezone }}
-    dest=/etc/timezone
+    dest={{ timezone_file }}
   become: yes
 
 - name: Update tzdata
-  command: /usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata
+  command: "{{ update_tzdata_command }}"
   become: yes
 
 - name: Remove old ntp servers configuration
   lineinfile: >
-    dest=/etc/ntp.conf
-    regexp="#FT-NTP-Server$"
+    dest={{ ntp_conf_file }}
+    regexp="{{ ntp_conf_tag }}"
     state=absent
   become: yes
 
 - name: Setting up ntp servers configuration
   lineinfile: >
-    dest=/etc/ntp.conf
+    dest={{ ntp_conf_file }}
     line="{{ item.server }}"
     insertafter=EOF
   with_items:
-    "{{ ntp_servers }}"
+    - "{{ ntp_servers }}"
   become: yes
 
 - name: Restart the ntp service

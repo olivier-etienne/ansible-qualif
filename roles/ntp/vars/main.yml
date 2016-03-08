@@ -1,11 +1,7 @@
 ---
 
-# List of Orange ntp servers
-ntp_servers:
-  - {server: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }
+ntp_conf_file: /etc/ntp.conf
+ntp_conf_tag: "#FT-NTP-Server"
+
+update_tzdata_command: "/usr/sbin/dpkg-reconfigure --frontend noninteractive tzdata"
+timezone_file: /etc/timezone

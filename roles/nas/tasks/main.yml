@@ -34,13 +34,42 @@
     state=mounted
   become: yes
 
-- name: Create backup nas script directory
+
+################
+# qualif bench #
+################
+
+- name: Create qualif backup nas script directory
   file: >
     path={{ nas_backup_script_path }}
     state=directory
+  when: qualif_bench
+  become: yes
 
-- name: Copy nas backup script
+- name: Copy qualif nas backup script
   copy: >
-    src={{ nas_backup_script }}
-    dest={{ nas_backup_script_path }}
-    mode=755
+    src={{ qualif_nas_backup_script }}
+    dest={{ nas_backup_script_path }}/{{ nas_backup_script }}
+    mode={{ nas_backup_script_rights }}
+  when: qualif_bench
+  become: yes
+
+
+###############
+# debug bench #
+###############
+
+- name: Create debug backup nas script directory
+  file: >
+    path={{ nas_backup_script_path }}
+    state=directory
+  when: debug_bench
+  become: yes
+
+- name: Copy debug nas backup script
+  copy: >
+    src={{ debug_nas_backup_script }}
+    dest={{ nas_backup_script_path }}/{{ nas_backup_script }}
+    mode={{ nas_backup_script_rights }}
+  when: debug_bench
+  become: yes

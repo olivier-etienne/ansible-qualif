@@ -1,0 +1,263 @@
+---
+# This playbook will install stream-manager
+
+############
+# database #
+############
+
+- name: Start Mysql Service
+  service: >
+    name=mysql
+    state=started
+    enabled=yes
+  become: yes
+
+- name: Remove existing stream-manager user
+  mysql_user: >
+    name={{ streammanager_database_user }}
+    state=absent
+  become: yes
+
+- name: Remove existing stream-manager database
+  mysql_db: >
+    name={{ streammanager_database_name }}
+    state=absent
+  become: yes
+
+- name: Create stream-manager user
+  mysql_user: >
+    name={{ streammanager_database_user }}
+    password={{ streammanager_database_password }}
+    priv=*.*:ALL host='%'
+    state=present
+  become: yes
+
+- name: Create stream-manager database
+  mysql_db: >
+    name={{ streammanager_database_name }}
+    state=present
+  become: yes
+
+- name: Copy stream-manager tables sql
+  copy: >
+    src={{ streammanager_sql }}
+    dest=/home/{{ qualif_user_name }}
+  become: yes
+
+- name: Create stream-manager default tables
+  mysql_db: >
+    name={{ streammanager_database_name }}
+    target=/home/{{ qualif_user_name }}/{{ streammanager_sql }}
+    state=import
+  become: yes
+
+
+##################
+# stream-manager #
+##################
+
+- name: Stop tomcat service
+  service: >
+    name=tomcat8
+    state=stopped
+  become: yes
+
+- name: Remove existing stream-manager war from tomcat
+  file: >
+    path={{ stream_manager_war_path }}/*
+    state=absent
+  become: yes
+
+- name: Remove existing stream-manager xml from tomcat
+  file: >
+    path={{ stream_manager_xml_path }}/*
+    state=absent
+  become: yes
+
+- name: Remove existing stream-manager directory
+  file: >
+    path={{ stream_manager_path }}
+    state=absent
+  become: yes
+
+- name: Create stream-manager src directory
+  file: >
+    path={{ stream_manager_src_path }}
+    state=directory
+  become: yes
+
+- name: Clone stream-manager repository
+  git: >
+    repo={{ stream_manager_url }}
+    dest={{ stream_manager_src_path }}
+  become: yes
+
+- name: Get GWT uploader library
+  get_url: >
+    url={{ gwt_uploader_library_url }}
+    dest={{ stream_manager_src_path }}
+  become: yes
+
+- name: Create maven artifact
+  command: >
+    {{ maven_artifact_command }}
+    chdir={{ stream_manager_src_path }}
+  become: yes
+
+- name: Create stream-manager archive
+  command: >
+    {{ maven_packaging_command }}
+    chdir={{ stream_manager_src_path }}
+  become: yes
+
+- name: Extract stream-manager generated archive
+  unarchive: >
+    src={{ stream_manager_src_path }}/target/{{ stream_manager_tar_name }}
+    dest={{ stream_manager_src_path }}/target/
+    copy=no
+  become: yes
+
+- name: Copy stream-manager war into tomcat
+  command: >
+    cp {{ stream_manager_war_name }} {{ stream_manager_war_path }}/
+    chdir={{ stream_manager_src_path }}/target
+  become: yes
+
+- name: Copy stream-manager xml into tomcat
+  command: >
+    cp {{ stream_manager_xml_name }} {{ stream_manager_xml_path }}/
+    chdir={{ stream_manager_src_path }}/target
+  become: yes
+
+- name: Start tomcat service
+  service: >
+    name=tomcat8
+    state=started
+  become: yes
+
+
+#######################
+# multicat-supervisor #
+#######################
+
+- name: Remove existing multicat-supervisor directory
+  file: >
+    path={{ multicat_supervisor_path }}
+    state=absent
+  become: yes
+
+- name: Create multicat-supervisor src directory
+  file: >
+    path={{ multicat_supervisor_src_dir_path }}
+    state=directory
+  become: yes
+
+- name: Clone multicat-supervisor repository
+  git: >
+    repo={{ multicat_supervisor_url }}
+    dest={{ multicat_supervisor_src_path }}
+  become: yes
+
+
+#############
+# bitstream #
+#############
+
+- name: Get bitstream library (get_url don't work with https)
+  command: >
+    wget {{ bitstream_url }}
+    chdir={{ multicat_supervisor_src_dir_path }}
+  become: yes
+
+- name: Extract bitstream library
+  unarchive: >
+    src={{ multicat_supervisor_src_dir_path }}/{{ bitstream_archive_name }}
+    dest={{ multicat_supervisor_src_dir_path }}
+    copy=no
+  become: yes
+
+- name: Install bitstream library
+  command: >
+    /usr/bin/make install
+    chdir={{ bitstream_src_path }}
+  become: yes
+
+
+##########
+# Config #
+##########
+
+- name: Config stream manager database host
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^host=$'
+    replace='host={{ streammanager_database_host }}'
+  become: yes
+
+- name: Config stream manager database username
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^username=$'
+    replace='username={{ streammanager_database_user }}'
+  become: yes
+
+- name: Config streammanager database password
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^password=$'
+    replace='password={{ streammanager_database_password }}'
+  become: yes
+
+- name: Config stream manager database name
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^database=$'
+    replace='database={{ streammanager_database_name }}'
+  become: yes
+
+- name: Config stream manager database ttl
+  replace: >
+    dest={{ multicat_supervisor_src_path }}/{{ multicat_supervisor_config_file }} regexp='^ttl=$'
+    replace='ttl={{ multicat_supervisor_network_ttl }}'
+  become: yes
+
+
+#########
+# Start #
+#########
+
+- name: Compile and install multicat-supervisor
+  command: >
+    {{ item }}
+    chdir={{ multicat_supervisor_src_path }}
+  with_items:
+    - /usr/bin/make clean
+    - /usr/bin/make install
+  become: yes
+
+- name: Create videos multicat directory
+  file: >
+    path={{ multicat_supervisor_videos_path }}
+    state=directory
+  become: yes
+
+- name: Restore videos multicat directory from nas
+  command: cp -R {{ multicat_supervisor_videos_nas_path }} {{ multicat_supervisor_path }}
+  when: restore_nas
+  become: yes
+
+- name: Create multicat-supervisor service
+  template: >
+    src={{ multicat_supervisor_service_template }}
+    dest={{ multicat_supervisor_service_path }}
+  become: yes
+
+- name: Stop and disable existing multicat-supervisor service
+  service: >
+    name={{ multicat_supervisor_service_name }}
+    state=stopped
+    enabled=no
+  become: yes
+
+- name: Enable and start multicat-supervisor service
+  service: >
+    name={{ multicat_supervisor_service_name }}
+    state=started
+    enabled=yes
+  become: yes

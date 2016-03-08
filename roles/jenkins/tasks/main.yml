@@ -1,13 +1,66 @@
 ---
-# This playbook will enable jenkins
+# This playbook will enable debug jenkins
 
-##########
-# Config #
-##########
+################
+# qualif bench #
+################
 
-- name: Restore jenkins config from nas
-  command: rsync {{ rsync_options }} {{ jenkins_nas_path }} {{ jenkins_path }}
+- name: Restore qualif jenkins jobs config from nas
+  command: rsync {{ rsync_options }} {{ qualif_jenkins_nas_path }}/ {{ jenkins_path }}/
+  when: qualif_bench and restore_nas
   become: yes
+
+- name: Restore qualif jenkins basic files from nas
+  command: find {{ qualif_jenkins_nas_path }} -maxdepth 1 -type f -exec cp {} {{ jenkins_path }} \;
+  when: qualif_bench and restore_nas
+  become: yes
+
+- name: Restore qualif jenkins plugins from nas
+  command: ls /
+  when: qualif_bench and restore_nas
+  become: yes
+
+- name: Restore qualif jenkins useful scripts from nas
+  command: cp -R {{ item }} /home/{{ user }}/Bureau
+  with_items:
+    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deployKarmaLite"
+    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deploy_standalone"
+    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deployRealase"
+  when: qualif_bench and restore_nas
+  become: yes
+
+###############
+# debug bench #
+###############
+
+- name: Restore debug jenkins jobs config from nas
+  command: find {{ debug_jenkins_nas_path }} -maxdepth 1 -type f -exec cp {} {{ jenkins_path }} \;
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Restore debug jenkins basic files from nas
+  command: rsync {{ rsync_options }} {{ debug_jenkins_nas_path }}/ {{ jenkins_path }}/
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Restore debug jenkins plugins from nas
+  command: ls /
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Restore debug jenkins useful scripts from nas
+  command: cp -R {{ item }} /home/{{ user }}/Bureau
+  with_items:
+    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deployKarmaLite"
+    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deploy_standalone"
+    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deployRealase"
+  when: debug_bench and restore_nas
+  become: yes
+
+
+#############
+# all bench #
+#############
 
 - name: Restart the Jenkins service
   service: >

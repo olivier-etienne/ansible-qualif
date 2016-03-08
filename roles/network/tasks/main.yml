@@ -1,0 +1,25 @@
+---
+# This playbook will config network interfaces
+
+################
+# qualif bench #
+################
+
+- name: Config qualif network interface
+  template: >
+    src={{ qualif_network_interfaces_template }}
+    dest={{ network_interfaces_path }}
+  when: qualif_bench
+  become: yes
+
+
+###############
+# debug bench #
+###############
+
+- name: Config qualif network interface
+  template: >
+    src={{ debug_network_interfaces_template }}
+    dest={{ network_interfaces_path }}
+  when: debug_bench
+  become: yes

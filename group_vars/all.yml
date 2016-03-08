@@ -1,0 +1,90 @@
+########
+# user #
+########
+
+qualif_user_name: qualif
+qualif_user_password: qualif
+
+
+########
+# time #
+########
+
+timezone: 'Europe/Paris'
+
+
+############
+# streamer #
+############
+
+streammanager_database_host: localhost
+streammanager_database_name: MyTVTools
+streammanager_database_user: test
+streammanager_database_password: univers
+multicat_supervisor_network_ttl: 0
+
+gwt_uploader_library_url: http://sourceforge.net/projects/gwt-uploader/files/1.1.0/org.moxieapps.gwt.uploader-1.1.0.jar
+
+
+#######
+# nas #
+#######
+
+nas_src: 10.185.110.178:/volume1/NetBackup/
+
+
+#######
+# ntp #
+#######
+
+# List of ntp servers
+ntp_servers:
+  - {server: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - {server: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }
+
+
+#########
+# cntlm #
+#########
+
+cntlm_username: skwp5790
+cntlm_domain: ad.francetelecom.fr
+
+# check cntlm documentation to generate password
+cntlm_pass_lm: C104B7E7834BA39ADA5F4423AA8761A5
+cntlm_pass_nt: 31E9A4FC4EE14B6BDB129B67876AF24D
+cntlm_pass_ntlm: 5B09C6A7F62653ECF9BDA98C37C6810A
+
+cntlm_proxies:
+  - { ip: proxy-tls.toulouse.francetelecom.fr, port: 8080 }
+  - { ip: proxy, port: 8080 }
+  - { ip: proxybkp, port: 8080 }
+
+cntlm_no_proxy: "localhost, 127.0.0.*, 10.*, 192.168.*"
+
+cntlm_listen_address: localhost
+cntlm_listen_port: 3128
+
+
+##############
+# standalone #
+##############
+
+standalone_url: http://10.185.111.250:8080/view/standalone/job/standalone/lastSuccessfulBuild/artifact/target/newtv-standalone-1.0.5-SNAPSHOT-all.zip
+
+
+###########
+# network #
+###########
+
+qualif_network_address: 10.185.111.250
+debug_network_address: 10.185.111.249
+network_netmask: 255.255.254.0
+network_gateway: 10.185.111.254
+network_dns: 10.171.108.2 10.171.36.15 10.171.35.3
+

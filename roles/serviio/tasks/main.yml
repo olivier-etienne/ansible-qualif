@@ -38,6 +38,7 @@
 
 - name: Restore servios directory from nas
   command: cp -R {{ seriio_media_nas_path }} {{ var_path }}
+  when: restore_nas
   become: yes
 
 - name: Stop and disable existing serviio service

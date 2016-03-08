@@ -1,7 +1,5 @@
 ---
 
-standalone_url: http://10.185.111.250:8080/view/standalone/job/standalone/lastSuccessfulBuild/artifact/target/newtv-standalone-1.0.5-SNAPSHOT-all.zip
-
 standalone_path: /home/standalone
 standalone_script: /home/standalone/run.sh
 standalone_service_template: standalone.service.j2

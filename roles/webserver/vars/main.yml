@@ -1,5 +1,9 @@
 ---
 
+##########
+# apache #
+##########
+
 var_path: /var
 apache_www_nas_path: /mnt/nas/banc_qualif/var/www
 
@@ -36,3 +40,12 @@ apache_mods:
   - {mod: "ssl"}
   - {mod: "userdir"}
   - {mod: "vhost_alias"}
+
+
+##########
+# tomcat #
+##########
+
+tomcat_path: /var/lib/tomcat8/conf/server.xml
+tomcat_default_port: 8080
+tomcat_target_port: 8088

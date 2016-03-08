@@ -2,18 +2,21 @@
 # This playbook install whole qualif bench
 
 - name: apply qualif configuration
-  hosts: qualif
+  hosts: qualif[1]
   remote_user: qualif
   become_user: root
   become_method: su
+  vars:
+    qualif_bench: true
+    debug_bench: false
+    restore_nas: true
 
   roles:
     - nas
+    - webserver
     - jenkins
-    - database
-    - apache
+    - streamer
     - phpmyadmin
-    - streammanager
     - standalone
-    - serviio
     - crontab
+    - network

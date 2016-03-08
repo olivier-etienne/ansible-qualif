@@ -18,24 +18,36 @@ environment_config_file: /etc/environment
 # cntlm #
 #########
 
-deb_cntlm_package: cntlm_0.92.3-1_amd64.deb
-
 cntlm_config_template: cntlm.conf.j2
 cntlm_config_file: /etc/cntlm.conf
 
-cntlm_username: skwp5790
-cntlm_domain: ad.francetelecom.fr
+#######
+# git #
+#######
 
-cntlm_pass_lm: C104B7E7834BA39ADA5F4423AA8761A5
-cntlm_pass_nt: 31E9A4FC4EE14B6BDB129B67876AF24D
-cntlm_pass_ntlm: 5B09C6A7F62653ECF9BDA98C37C6810A
+git_config_http_command: "git config --global http.proxy http://localhost:3128"
+git_config_https_command: "git config --global https.proxy https://localhost:3128"
 
-cntlm_proxies:
-  - { ip: proxy-tls.toulouse.francetelecom.fr, port: 8080 }
-  - { ip: proxy, port: 8080 }
-  - { ip: proxybkp, port: 8080 }
+########
+# wget #
+########
 
-cntlm_no_proxy: "localhost, 127.0.0.*, 10.*, 192.168.*"
+wgetrc_template: .wgetrc.j2
+wgetrc_file: .wgetrc
 
-cntlm_listen_address: localhost
-cntlm_listen_port: 3128
+#########
+# maven #
+#########
+
+maven_settings_file: /etc/maven2/settings.xml
+maven_proxy_tag: "#FT-MAVEN-Proxy"
+maven_proxies_tag: "<proxies>"
+
+# Orange maven proxy
+maven_proxy:
+  - {line: "    </proxy><!-- #FT-MAVEN-Proxy -->" }
+  - {line: "      <port>3128</port><!-- #FT-MAVEN-Proxy -->" }
+  - {line: "      <host>localhost</host><!-- #FT-MAVEN-Proxy -->" }
+  - {line: "      <protocol>https</protocol><!-- #FT-MAVEN-Proxy -->" }
+  - {line: "      <active>true</active><!-- #FT-MAVEN-Proxy -->" }
+  - {line: "    <proxy><!-- #FT-MAVEN-Proxy -->" }

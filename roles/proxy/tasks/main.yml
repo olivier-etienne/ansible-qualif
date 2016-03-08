@@ -1,12 +1,11 @@
 ---
-# This playbook will configure Orange proxy
+# This playbook will configure some tools with proxy
 
-- name: Start the cntlm service
-  service: >
-    name=cntlm
-    state=started
-    enabled=yes
-  become: yes
+#######
+# env #
+#######
+
+# This playbook will configure Orange proxy
 
 - name: Config environment proxy
   template: >
@@ -14,11 +13,21 @@
     dest={{ environment_config_file }}
   become: yes
 
+
+#######
+# apt #
+#######
+
 - name: Config apt proxy
   template: >
     src={{ apt_config_template }}
     dest={{ apt_config_file }}
   become: yes
+
+
+#########
+# cntlm #
+#########
 
 - name: Setting up cntlm configuration
   template: >
@@ -31,4 +40,47 @@
     name=cntlm
     state=restarted
     sleep=3
+  become: yes
+
+
+#######
+# git #
+#######
+
+- name: Add http git proxy
+  command: "{{ git_config_http_command }}"
+
+- name: Add https git proxy
+  command: "{{ git_config_https_command }}"
+
+
+########
+# wget #
+########
+
+- name: Config wget proxy
+  template: >
+    src={{ wgetrc_template }}
+    dest=/home/{{ qualif_user_name }}/{{ wgetrc_file }}
+
+
+#########
+# maven #
+#########
+
+- name: Remove old maven proxy config
+  lineinfile: >
+    dest={{ maven_settings_file }}
+    regexp="{{ maven_proxy_tag }}"
+    state=absent
+  become: yes
+
+- name: Config maven proxy
+  lineinfile: >
+    dest={{ maven_settings_file }}
+    insertafter="{{ maven_proxies_tag }}"
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - "{{ maven_proxy }}"
   become: yes
