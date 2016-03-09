@@ -23,6 +23,9 @@ rc2=$?
 rsync -av --force --del --exclude 'builds' /var/lib/jenkins/ /mnt/nas/banc_debug/var/lib/jenkins/  --log-file /var/log/saveToNas/job3.log
 rc3=$?
 
+rsync -av --force --del /etc/ /mnt/nas/banc_debug/etc/  --log-file /var/log/saveToNas/job4.log
+rc4=$?
+
 rc=$(($rc1 + $rc2 + $rc3))
 if [ $rc != 0 ] ; then
    echo "Erreur pendant le backup du banc de debug. Plus de details dans /var/log/saveToNas/jobs*.log" > /var/log/saveToNas/status.log
@@ -38,6 +41,10 @@ if [ $rc != 0 ] ; then
    if [ $rc3 != 0 ] ; then
        echo "\nstatus = $rc3" >> /var/log/saveToNas/job3.log
        cat /var/log/saveToNas/job3.log | mail -s 'BACKUP DEBUG WARNING' archilog.newtv@orange.com
+   fi
+   if [ $rc4 != 0 ] ; then
+       echo "\nstatus = $rc4" >> /var/log/saveToNas/job4.log
+       cat /var/log/saveToNas/job4.log | mail -s 'BACKUP DEBUG WARNING' archilog.newtv@orange.com
    fi
 else
    echo "Success" > /var/log/saveToNas/status.log
