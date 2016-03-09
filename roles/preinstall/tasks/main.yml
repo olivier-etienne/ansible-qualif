@@ -19,7 +19,16 @@
     shell=/bin/bash
     home=/home/{{ qualif_user_name }}
     groups=qualif,sudo
-    password={{ qualif_user_password }}
+  become: yes
+
+- name: Config sudoers
+  lineinfile: >
+    dest={{ sudoers_file }}
+    insertafter=EOF
+    line="{{ item.line }}"
+    state=present
+  with_items:
+    - "{{ sudoers_list }}"
   become: yes
 
 
@@ -95,6 +104,20 @@
   apt: name=tomcat8 state=present
   become: yes
 
+- name: Change tomcat port to 8088 (avoid conflict with jenkins)
+  replace: >
+    dest={{ tomcat_path }}
+    regexp="8080"
+    replace="8088"
+  become: yes
+
+- name: Restart tomcat service
+  service: >
+    name=tomcat8
+    state=restarted
+    sleep=3
+  become: yes
+
 
 ############
 # Database #
@@ -120,7 +143,7 @@
   apt: name=build-essential state=present
   become: yes
 
-- name: Install maven package
+- name: Install maven
   apt: name=maven2 state=present
   become: yes
 

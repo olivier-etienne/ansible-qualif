@@ -48,22 +48,3 @@
     state=restarted
     sleep=3
   become: yes
-
-
-##########
-# tomcat #
-##########
-
-- name: Change tomcat default port to 8088
-  replace: >
-    dest={{ tomcat_path }}
-    regexp="8080"
-    replace="8088"
-  become: yes
-
-- name: Restart tomcat Service
-  service: >
-    name=tomcat8
-    state=restarted
-    sleep=3
-  become: yes

@@ -21,11 +21,11 @@
   become: yes
 
 - name: Restore qualif jenkins useful scripts from nas
-  command: cp -R {{ item }} /home/{{ user }}/Bureau
+  command: cp -R {{ item }} /home/{{ qualif_user_name }}/Bureau
   with_items:
-    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deployKarmaLite"
-    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deploy_standalone"
-    - "{{ qualif_nas_path }}/home/{{ user }}/Bureau/deployRealase"
+    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployKarmaLite"
+    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deploy_standalone"
+    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployRealase"
   when: qualif_bench and restore_nas
   become: yes
 
@@ -49,11 +49,11 @@
   become: yes
 
 - name: Restore debug jenkins useful scripts from nas
-  command: cp -R {{ item }} /home/{{ user }}/Bureau
+  command: cp -R {{ item }} /home/{{ qualif_user_name }}/Bureau
   with_items:
-    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deployKarmaLite"
-    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deploy_standalone"
-    - "{{ debug_nas_path }}/home/{{ user }}/Bureau/deployRealase"
+    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployKarmaLite"
+    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deploy_standalone"
+    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployRealase"
   when: debug_bench and restore_nas
   become: yes
 

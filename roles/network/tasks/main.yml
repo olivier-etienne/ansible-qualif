@@ -17,7 +17,7 @@
 # debug bench #
 ###############
 
-- name: Config qualif network interface
+- name: Config debug network interface
   template: >
     src={{ debug_network_interfaces_template }}
     dest={{ network_interfaces_path }}

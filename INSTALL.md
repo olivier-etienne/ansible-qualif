@@ -41,9 +41,11 @@
 
 	- Run the debug script to install debug bench (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts debug.yml --ask-become-pass
+	  Then enter the root password
 
 	- Run the qualif script to install qualif bench  (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts qualif.yml --ask-become-pass
+	  Then enter the root password
 
 	- Reboot debug / qualif bench
 	    shutdown -r now

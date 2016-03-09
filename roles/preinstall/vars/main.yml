@@ -12,3 +12,13 @@ java_license_question: "shared/accepted-oracle-license-v1-1"
 jenkins_key_url: http://pkg.jenkins-ci.org/debian/jenkins-ci.org.key
 jenkins_list_template: jenkins.list.j2
 jenkins_list_path: /etc/apt/sources.list.d/jenkins.list
+
+sudoers_file: /etc/sudoers
+
+# Orange sudoers
+sudoers_list:
+  - {line: "qualif ALL=(ALL) NOPASSWD: ALL" }
+  - {line: "jenkins ALL=(ALL) NOPASSWD: ALL" }
+  - {line: "www-data ALL=(ALL) NOPASSWD: ALL" }
+
+tomcat_path: /var/lib/tomcat8/conf/server.xml
