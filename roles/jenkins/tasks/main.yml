@@ -15,11 +15,6 @@
   when: qualif_bench and restore_nas
   become: yes
 
-- name: Restore qualif jenkins plugins from nas
-  command: ls /
-  when: qualif_bench and restore_nas
-  become: yes
-
 - name: Restore qualif jenkins useful scripts from nas
   command: cp -R {{ item }} /home/{{ qualif_user_name }}/Bureau
   with_items:
@@ -29,22 +24,25 @@
   when: qualif_bench and restore_nas
   become: yes
 
+- name: Restore qualif jenkins plugins from nas
+  command: cp -R {{ qualif_jenkins_nas_path }}/plugins/{{ item.plugin }} {{ jenkins_path }}/plugins/
+  with_items:
+    - "{{ jenkins_plugins }}"
+  when: qualif_bench and restore_nas
+  become: yes
+
+
 ###############
 # debug bench #
 ###############
 
 - name: Restore debug jenkins jobs config from nas
-  command: find {{ debug_jenkins_nas_path }} -maxdepth 1 -type f -exec cp {} {{ jenkins_path }} \;
-  when: debug_bench and restore_nas
-  become: yes
-
-- name: Restore debug jenkins basic files from nas
   command: rsync {{ rsync_options }} {{ debug_jenkins_nas_path }}/ {{ jenkins_path }}/
   when: debug_bench and restore_nas
   become: yes
 
-- name: Restore debug jenkins plugins from nas
-  command: ls /
+- name: Restore debug jenkins basic files from nas
+  command: find {{ debug_jenkins_nas_path }} -maxdepth 1 -type f -exec cp {} {{ jenkins_path }} \;
   when: debug_bench and restore_nas
   become: yes
 
@@ -54,6 +52,13 @@
     - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployKarmaLite"
     - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deploy_standalone"
     - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployRealase"
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Restore debug jenkins plugins from nas
+  command: cp -R {{ debug_jenkins_nas_path }}/plugins/{{ item.plugin }} {{ jenkins_path }}/plugins/
+  with_items:
+    - "{{ jenkins_plugins }}"
   when: debug_bench and restore_nas
   become: yes
 

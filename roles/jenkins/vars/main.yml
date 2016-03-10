@@ -10,3 +10,20 @@ debug_nas_path: /mnt/nas/banc_debug
 debug_jenkins_nas_path: /mnt/nas/banc_debug/var/lib/jenkins
 qualif_jenkins_nas_path: /mnt/nas/banc_qualif/var/lib/jenkins
 
+jenkins_plugins:
+  - { plugin: "build-pipeline-plugin" }
+  - { plugin: "build-pipeline-plugin.jpi" }
+  - { plugin: "greenballs" }
+  - { plugin: "greenballs.jpi" }
+  - { plugin: "parameterized-trigger" }
+  - { plugin: "parameterized-trigger.jpi" }
+  - { plugin: "publish-over-ssh" }
+  - { plugin: "publish-over-ssh.jpi" }
+  - { plugin: "seleniumhq" }
+  - { plugin: "seleniumhq.jpi" }
+  - { plugin: "throttle-concurrents" }
+  - { plugin: "throttle-concurrents.jpi" }
+  - { plugin: "ws-cleanup" }
+  - { plugin: "ws-cleanup.jpi" }
+  - { plugin: "seleniumrc-plugin" }
+  - { plugin: "seleniumrc-plugin.jpi" }

@@ -45,9 +45,9 @@ maven_proxies_tag: "<proxies>"
 
 # Orange maven proxy
 maven_proxy:
-  - {line: "    </proxy><!-- #FT-MAVEN-Proxy -->" }
-  - {line: "      <port>3128</port><!-- #FT-MAVEN-Proxy -->" }
-  - {line: "      <host>localhost</host><!-- #FT-MAVEN-Proxy -->" }
-  - {line: "      <protocol>https</protocol><!-- #FT-MAVEN-Proxy -->" }
-  - {line: "      <active>true</active><!-- #FT-MAVEN-Proxy -->" }
-  - {line: "    <proxy><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "    </proxy><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "      <port>3128</port><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "      <host>localhost</host><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "      <protocol>https</protocol><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "      <active>true</active><!-- #FT-MAVEN-Proxy -->" }
+  - { line: "    <proxy><!-- #FT-MAVEN-Proxy -->" }

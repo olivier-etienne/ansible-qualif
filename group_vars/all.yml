@@ -38,13 +38,13 @@ nas_src: 10.185.110.178:/volume1/NetBackup/
 
 # List of ntp servers
 ntp_servers:
-  - {server: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
-  - {server: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server sfebua31.bagnolet.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server OPADYX41.rouen.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server OPADYV21.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server sfebuv31.nanterre.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server SFEBUS11.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server sfebus21.strasbourg.francetelecom.fr iburst #FT-NTP-Server" }
+  - { server: "server sfebuf11.lille.francetelecom.fr iburst #FT-NTP-Server" }
 
 
 #########

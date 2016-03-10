@@ -14,7 +14,7 @@ dpkg -l > /home/qualif/Bureau/SAVE_TO_NAS/installed_packages
 crontab -u qualif -l > /home/qualif/Bureau/SAVE_TO_NAS/crontab_qualif
 crontab -l > /home/qualif/Bureau/SAVE_TO_NAS/crontab_root
 
-rsync -av --force --del /home/qualif/Bureau/SAVE_TO_NAS/ /mnt/nas/banc_debug/home/qualif/Bureau/SAVE_TO_NAS/  --log-file /var/log/saveToNas/job1.log 
+rsync -av --force --del /home/qualif/Bureau/ /mnt/nas/banc_debug/home/qualif/Bureau/  --log-file /var/log/saveToNas/job1.log 
 rc1=$?
 
 rsync -av --force --del /var/nas/ /mnt/nas/banc_debug/var/nas/  --log-file /var/log/saveToNas/job2.log
