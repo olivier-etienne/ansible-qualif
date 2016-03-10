@@ -7,7 +7,7 @@
 	- Make sure an user called "qualif" is created
 		adduser qualif
 
-	- Reboot both qualif and debug bench
+	- Reboot qualif/debug bench
 
 
 ##############

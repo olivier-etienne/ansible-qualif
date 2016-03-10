@@ -32,6 +32,23 @@
   become: yes
 
 
+########
+# Misc #
+########
+
+- name: Install misc tools
+  apt: name={{item}} state=installed
+  with_items:
+    - java-common
+    - default-jre
+    - default-jdk
+    - zip
+    - vim
+    - curl
+    - nload
+  become: yes
+
+
 #########
 # Proxy #
 #########
@@ -67,24 +84,23 @@
 # Jenkins #
 ###########
 
-- name: Add jenkins key
+- name: Add Jenkins key
   apt_key: >
     url={{ jenkins_key_url }}
     state=present
   become: yes
 
-- name: Add jenkins source list
-  template: >
-    src={{ jenkins_list_template }}
-    dest={{ jenkins_list_path }}
+- name: Add Jenkins apt repo (and update cache)
+  apt_repository: >
+    repo={{ jenkins_repo_url }}
+    state=present
+    update_cache=yes
   become: yes
 
-- name: Install Jenkins (update cache first)
+- name: Install Jenkins
   apt: >
     name=jenkins
     state=present
-    force=yes
-    update_cache=yes
   become: yes
 
 
@@ -187,17 +203,4 @@
     state=present
     force=yes
     update_cache=yes
-  become: yes
-
-
-########
-# Misc #
-########
-
-- name: Install misc tools
-  apt: name={{item}} state=installed
-  with_items:
-    - zip
-    - vim
-    - nload
   become: yes
