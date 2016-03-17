@@ -2,7 +2,7 @@
 
 apt_config_template: apt.conf.j2
 
-rsync_options: -am --include='config.xml' --include='firefox' --include='nextBuildNumber' --include='*/' --exclude='*'
+rsync_options: -am --include='config.xml' --include='nextBuildNumber' --include='*/' --exclude='*'
 
 jenkins_path: /var/lib/jenkins
 qualif_nas_path: /mnt/nas/banc_qualif
@@ -27,3 +27,16 @@ jenkins_plugins:
   - { plugin: "ws-cleanup.jpi" }
   - { plugin: "seleniumrc-plugin" }
   - { plugin: "seleniumrc-plugin.jpi" }
+
+# List of deploy folders use by jenkins jobs
+deploy_folders:
+  - { folder: "deployKarmaLite" }
+  - { folder: "deploy_standalone" }
+  - { folder: "deployRealase" }
+
+jenkins_xvfb_template: xvfb.j2
+jenkins_xvfb_path: /etc/init.d/xvfb
+
+jenkins_display_port: 99
+
+jenkins_clean_profile_cmd: "find /var/lib/jenkins/ -type f -exec sed -i 's/-firefoxProfileTemplate \\/var\\/lib\\/jenkins\\/firefox\\/ljhyckqd.Selenium //g' {} \\;"

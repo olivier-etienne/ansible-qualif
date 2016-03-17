@@ -21,3 +21,7 @@ sudoers_list:
   - {line: "www-data ALL=(ALL) NOPASSWD: ALL" }
 
 tomcat_path: /var/lib/tomcat8/conf/server.xml
+
+multimedia_ppa_url: http://www.deb-multimedia.org
+multimedia_list_template: multimedia.list.j2
+multimedia_list_path: /etc/apt/sources.list.d/multimedia.list

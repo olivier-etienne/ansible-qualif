@@ -13,8 +13,8 @@
 
   roles:
     - nas
-    - webserver
     - jenkins
+    - webserver
     - streamer
     - phpmyadmin
     - standalone

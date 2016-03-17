@@ -5,6 +5,7 @@
 ##########
 
 var_path: /var
+www_path: /var/www
 apache_www_nas_path: /mnt/nas/banc_qualif/var/www
 
 apache_sites_path: /etc/apache2/sites-available
@@ -40,3 +41,41 @@ apache_mods:
   - { mod: "ssl" }
   - { mod: "userdir" }
   - { mod: "vhost_alias" }
+
+# List of folder owned by www-data user
+www_data_folders:
+  - { folder: "dynamicMocks" }
+  - { folder: "FW_04_02_80" }
+  - { folder: "FW_04_03_29" }
+  - { folder: "FW_05_00_25" }
+  - { folder: "FW_07_01_91" }
+  - { folder: "FW_07_02_24" }
+  - { folder: "FW_07_02_89" }
+  - { folder: "karma" }
+  - { folder: "repPageDocBox" }
+  - { folder: "SAMSUNG-NUEXP-R3-FR" }
+
+# List of folder owned by qualif user
+qualif_folders:
+  - { folder: "AR_03_16_00" }
+  - { folder: "FW_10_05_10" }
+  - { folder: "img" }
+  - { folder: "movies" }
+  - { folder: "releaseSeb" }
+  - { folder: "test" }
+  - { folder: "testswagger" }
+  - { folder: "testswaggerSrc" }
+
+# List of files owned by qualif user
+qualif_files:
+  - { file: "index.php" }
+  - { file: "output.ts" }
+  - { file: "SAMSUNG_smte7100.lot4_ar_v065065.unsign.sign.as2" }
+  - { file: "tdb_jenkins_synthesis.php" }
+  - { file: "test.ts" }
+
+# List of folder owned by jenkins user
+jenkins_folders:
+  - { folder: "lastRelease" }
+  - { folder: "LO_10_05_10" }
+  - { folder: "portails" }

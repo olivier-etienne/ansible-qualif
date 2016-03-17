@@ -42,6 +42,63 @@
   when: restore_nas
   become: yes
 
+- name: Set www-data www folder permissions
+  file: >
+    path={{ www_path }}/{{ item.folder }}
+    owner=www-data
+    group=www-data
+    recurse=yes
+    state=directory
+  with_items:
+    - "{{ www_data_folders }}"
+  when: restore_nas
+  become: yes
+
+- name: Set qualif www folder permissions
+  file: >
+    path={{ www_path }}/{{ item.folder }}
+    owner=qualif
+    group=qualif
+    recurse=yes
+    state=directory
+  with_items:
+    - "{{ qualif_folders }}"
+  when: restore_nas
+  become: yes
+
+- name: Set qualif www file permissions
+  file: >
+    path={{ www_path }}/{{ item.file }}
+    owner=qualif
+    group=qualif
+    state=file
+  with_items:
+    - "{{ qualif_files }}"
+  when: restore_nas
+  become: yes
+
+- name: Set qualif www dashboard permissions
+  file: >
+    src={{ www_path }}/test
+    dest={{ www_path }}/dashboard
+    owner=qualif
+    group=qualif
+    state=link
+  when: restore_nas
+  become: yes
+
+- name: Set jenkins www folder permissions
+  file: >
+    path={{ www_path }}/{{ item.folder }}
+    owner=jenkins
+    group=jenkins
+    recurse=yes
+    state=directory
+  with_items:
+    - "{{ jenkins_folders }}"
+  when: restore_nas
+  become: yes
+
 - name: Restart apache2 Service
   service: >
     name=apache2

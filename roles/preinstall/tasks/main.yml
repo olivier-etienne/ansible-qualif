@@ -37,7 +37,7 @@
 ########
 
 - name: Install misc tools
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
     - java-common
     - default-jre
@@ -95,6 +95,21 @@
     repo={{ jenkins_repo_url }}
     state=present
     update_cache=yes
+  become: yes
+
+- name: Install jenkins useful tools
+  apt: >
+    name={{ item }}
+    force=yes
+    state=present
+  with_items:
+    - xfonts-100dpi
+    - xfonts-75dpi
+    - xfonts-scalable
+    - xfonts-cyrillic
+    - xvfb
+    - x11-apps
+    - imagemagick
   become: yes
 
 - name: Install Jenkins
@@ -164,7 +179,7 @@
   become: yes
 
 - name: Install librairies for multicat-supervisor
-  apt: name={{item}} state=installed
+  apt: name={{item}} state=present
   with_items:
     - libjson-c-dev
     - libmysqlclient-dev
@@ -203,4 +218,35 @@
     state=present
     force=yes
     update_cache=yes
+  become: yes
+
+
+###########
+# Serviio #
+###########
+
+- name: Install libav tools
+  apt: name=libav-tools state=present force=yes
+  become: yes
+
+- name: Add multimedia source list
+  template: >
+    src={{ multimedia_list_template }}
+    dest={{ multimedia_list_path }}
+  become: yes
+
+- name: Install deb-multimedia-keyring
+  apt: >
+    name=deb-multimedia-keyring
+    force=yes
+    update_cache=yes
+    state=present
+  become: yes
+
+- name: Install ffmpeg
+  apt: >
+    name=ffmpeg
+    force=yes
+    update_cache=yes
+    state=present
   become: yes

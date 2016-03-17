@@ -25,7 +25,7 @@
 	- Copy public SSH key content to qualif/debug bench
 		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
 
-	- Edit first row of [debug] / [qualif] group in ansible host file with correct IP address (internet)
+	- Edit first row of each [debug] / [qualif] group in ansible host file with correct IP address (internet)
 
 	- Edit groups_var/all.yml file with correct information
 
@@ -37,7 +37,7 @@
 	- As IP address changed, copy again public SSH key content to qualif/debug bench
 		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
 
-	- Edit second row of [debug] / [qualif] group in ansible host file with correct IP address (internal)
+	- Edit second row of each [debug] / [qualif] group in ansible host file with correct IP address (internal)
 
 	- Run the debug script to install debug bench (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts debug.yml --ask-become-pass

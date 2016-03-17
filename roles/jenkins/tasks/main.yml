@@ -6,7 +6,7 @@
 ################
 
 - name: Restore qualif jenkins jobs config from nas
-  command: rsync {{ rsync_options }} {{ qualif_jenkins_nas_path }}/ {{ jenkins_path }}/
+  command: rsync {{ rsync_options }} {{ qualif_jenkins_nas_path }}/jobs/ {{ jenkins_path }}/jobs/
   when: qualif_bench and restore_nas
   become: yes
 
@@ -16,11 +16,21 @@
   become: yes
 
 - name: Restore qualif jenkins useful scripts from nas
-  command: cp -R {{ item }} /home/{{ qualif_user_name }}/Bureau
+  command: cp -R {{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }} /home/{{ qualif_user_name }}/Bureau
   with_items:
-    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployKarmaLite"
-    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deploy_standalone"
-    - "{{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployRealase"
+    - "{{ deploy_folders }}"
+  when: qualif_bench and restore_nas
+  become: yes
+
+- name: Set qualif jenkins deploy folder permissions
+  file: >
+    path={{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }}
+    owner=jenkins
+    group=jenkins
+    recurse=yes
+    state=directory
+  with_items:
+    - "{{ deploy_folders }}"
   when: qualif_bench and restore_nas
   become: yes
 
@@ -37,7 +47,7 @@
 ###############
 
 - name: Restore debug jenkins jobs config from nas
-  command: rsync {{ rsync_options }} {{ debug_jenkins_nas_path }}/ {{ jenkins_path }}/
+  command: rsync {{ rsync_options }} {{ debug_jenkins_nas_path }}/jobs/ {{ jenkins_path }}/jobs/
   when: debug_bench and restore_nas
   become: yes
 
@@ -47,11 +57,21 @@
   become: yes
 
 - name: Restore debug jenkins useful scripts from nas
-  command: cp -R {{ item }} /home/{{ qualif_user_name }}/Bureau
+  command: cp -R {{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }} /home/{{ qualif_user_name }}/Bureau
   with_items:
-    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployKarmaLite"
-    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deploy_standalone"
-    - "{{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/deployRealase"
+    - "{{ deploy_folders }}"
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Set debug jenkins deploy folder permissions
+  file: >
+    path={{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }}
+    owner=jenkins
+    group=jenkins
+    recurse=yes
+    state=directory
+  with_items:
+    - "{{ deploy_folders }}"
   when: debug_bench and restore_nas
   become: yes
 
@@ -66,6 +86,33 @@
 #############
 # all bench #
 #############
+
+- name: Set xvfb script
+  template: >
+    src={{ jenkins_xvfb_template }}
+    dest={{ jenkins_xvfb_path }}
+    mode=0777
+  become: yes
+
+- name: Add xvfb script to startup
+  command: >
+    update-rc.d xvfb defaults
+    chdir=/etc/init.d
+  become: yes
+
+- name: Clean existing user profile config
+  command: >
+    {{ jenkins_clean_profile_cmd }}
+  become: yes
+
+- name: Set jenkins folder permissions
+  file: >
+    path={{ jenkins_path }}
+    owner=jenkins
+    group=jenkins
+    recurse=yes
+    state=directory
+  become: yes
 
 - name: Restart the Jenkins service
   service: >
