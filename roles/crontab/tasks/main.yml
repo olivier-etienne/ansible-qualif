@@ -2,7 +2,11 @@
 # This playbook will create cron jobs
 
 
-- name: Add cron job for root user
+################
+# qualif bench #
+################
+
+- name: Add qualif cron job for root user
   cron: >
     name="{{ item.name }}"
     minute="{{ item.minute }}"
@@ -10,5 +14,23 @@
     job="{{ item.job }}"
     user="root"
   with_items:
-    "{{ cron_jobs }}"
+    "{{ qualif_cron_jobs }}"
+  when: qualif_bench
+  become: yes
+
+
+###############
+# debug bench #
+###############
+
+- name: Add debug cron job for root user
+  cron: >
+    name="{{ item.name }}"
+    minute="{{ item.minute }}"
+    hour="{{ item.hour }}"
+    job="{{ item.job }}"
+    user="root"
+  with_items:
+    "{{ debug_cron_jobs }}"
+  when: debug_bench
   become: yes
