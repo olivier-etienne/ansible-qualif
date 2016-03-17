@@ -37,12 +37,17 @@
     "{{ apache_sites }}"
   become: yes
 
-- name: Restore www directory from nas
-  command: cp -R {{ apache_www_nas_path }} {{ var_path }}
-  when: restore_nas
+
+################
+# qualif bench #
+################
+
+- name: Restore qualif www directory from nas
+  command: cp -R {{ qualif_www_nas_path }} {{ var_path }}
+  when: qualif_bench and restore_nas
   become: yes
 
-- name: Set www-data www folder permissions
+- name: Set qualif www folders permissions (www-data)
   file: >
     path={{ www_path }}/{{ item.folder }}
     owner=www-data
@@ -51,10 +56,10 @@
     state=directory
   with_items:
     - "{{ www_data_folders }}"
-  when: restore_nas
+  when: qualif_bench and restore_nas
   become: yes
 
-- name: Set qualif www folder permissions
+- name: Set qualif www folders permissions (qualif)
   file: >
     path={{ www_path }}/{{ item.folder }}
     owner=qualif
@@ -63,10 +68,10 @@
     state=directory
   with_items:
     - "{{ qualif_folders }}"
-  when: restore_nas
+  when: qualif_bench and restore_nas
   become: yes
 
-- name: Set qualif www file permissions
+- name: Set qualif www files permissions (qualif)
   file: >
     path={{ www_path }}/{{ item.file }}
     owner=qualif
@@ -74,20 +79,20 @@
     state=file
   with_items:
     - "{{ qualif_files }}"
-  when: restore_nas
+  when: qualif_bench and restore_nas
   become: yes
 
-- name: Set qualif www dashboard permissions
+- name: Set qualif www dashboard link permissions (qualif)
   file: >
     src={{ www_path }}/test
     dest={{ www_path }}/dashboard
     owner=qualif
     group=qualif
     state=link
-  when: restore_nas
+  when: qualif_bench and restore_nas
   become: yes
 
-- name: Set jenkins www folder permissions
+- name: Set qualif www jenkins folder permissions (jenkins)
   file: >
     path={{ www_path }}/{{ item.folder }}
     owner=jenkins
@@ -96,8 +101,43 @@
     state=directory
   with_items:
     - "{{ jenkins_folders }}"
-  when: restore_nas
+  when: qualif_bench and restore_nas
   become: yes
+
+
+###############
+# debug bench #
+###############
+
+- name: Restore debug www directory from nas
+  command: cp -R {{ debug_www_nas_path }} {{ var_path }}
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Set debug www dashboard link permissions (qualif)
+  file: >
+    src={{ www_path }}/test
+    dest={{ www_path }}/dashboard
+    owner=qualif
+    group=qualif
+    state=link
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Set debug www test folder permissions (qualif)
+  file: >
+    path={{ www_path }}/test
+    owner=qualif
+    group=qualif
+    recurse=yes
+    state=directory
+  when: debug_bench and restore_nas
+  become: yes
+
+
+#############
+# all bench #
+#############
 
 - name: Restart apache2 Service
   service: >

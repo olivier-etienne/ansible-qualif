@@ -6,7 +6,8 @@
 
 var_path: /var
 www_path: /var/www
-apache_www_nas_path: /mnt/nas/banc_qualif/var/www
+qualif_www_nas_path: /mnt/nas/banc_qualif/var/www
+debug_www_nas_path: /mnt/nas/banc_debug/var/www
 
 apache_sites_path: /etc/apache2/sites-available
 

@@ -14,6 +14,7 @@
   roles:
     - nas
     - jenkins
+    - webserver
     - serviio
     - crontab
     - network
