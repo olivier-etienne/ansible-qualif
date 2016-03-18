@@ -82,6 +82,13 @@
   when: debug_bench and restore_nas
   become: yes
 
+- name: Restore debug jenkins themes from nas
+  command: cp {{ debug_jenkins_nas_path }}/userContent/{{ item.theme }} {{ jenkins_path }}/userContent/
+  with_items:
+    - "{{ jenkins_themes }}"
+  when: debug_bench and restore_nas
+  become: yes
+
 
 #############
 # all bench #

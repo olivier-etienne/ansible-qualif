@@ -10,6 +10,10 @@ debug_nas_path: /mnt/nas/banc_debug
 debug_jenkins_nas_path: /mnt/nas/banc_debug/var/lib/jenkins
 qualif_jenkins_nas_path: /mnt/nas/banc_qualif/var/lib/jenkins
 
+jenkins_themes:
+  - { theme: "jenkins_theme.css" }
+  - { theme: "jenkins_theme.js" }
+
 jenkins_plugins:
   - { plugin: "build-pipeline-plugin" }
   - { plugin: "build-pipeline-plugin.jpi" }
