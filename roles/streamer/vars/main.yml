@@ -4,7 +4,7 @@ streammanager_sql: stream-manager.sql
 
 stream_manager_war_path: /var/lib/tomcat8/webapps
 stream_manager_war_name: StreamManager.war
-stream_manager_xml_path: /var/lib/tomcat8/conf/Catalina
+stream_manager_xml_path: /var/lib/tomcat8/conf/Catalina/localhost
 stream_manager_xml_name: StreamManager.xml
 stream_manager_tar_name: streammanager-1.2-SNAPSHOT.tar.gz
 stream_manager_url: https://github.com/orange-tv-blagnac/stream-manager.git
