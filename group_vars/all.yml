@@ -2,7 +2,7 @@
 # user #
 ########
 
-qualif_user_name: qualif
+user_name: qualif
 
 
 ########
@@ -16,11 +16,33 @@ timezone: 'Europe/Paris'
 # streamer #
 ############
 
-streammanager_database_host: localhost
-streammanager_database_name: MyTVTools
-streammanager_database_user: test
-streammanager_database_password: univers
+stream_manager_database_ip: 10.185.111.250
+stream_manager_database_name: MyTVTools
+stream_manager_database_user: test
+stream_manager_database_password: univers
+stream_manager_admin_password: papsm
+stream_manager_manager_password: mppsq
+multicat_supervisor_ip: 10.185.111.250
+multicat_supervisor_ssh_login: qualif
+multicat_supervisor_ssh_password: qualif
 multicat_supervisor_network_ttl: 0
+
+
+#################
+# junit-history #
+#################
+
+junit_history_database_ip: 10.185.111.250
+junit_history_database_name: JUnitHistoryTools
+junit_history_database_user: test
+junit_history_database_password: univers
+junit_history_admin_password: papsm
+junit_history_manager_password: mppsq
+
+
+#######
+# gwt #
+#######
 
 gwt_uploader_library_url: http://sourceforge.net/projects/gwt-uploader/files/1.1.0/org.moxieapps.gwt.uploader-1.1.0.jar
 
@@ -74,15 +96,15 @@ cntlm_listen_port: 3128
 # standalone #
 ##############
 
-standalone_url: http://10.185.111.250:8080/view/standalone/job/standalone/lastSuccessfulBuild/artifact/target/newtv-standalone-1.0.5-SNAPSHOT-all.zip
+standalone_url: http://10.192.34.168/jenkins/view/standalone/job/standalone-trunk-all/lastSuccessfulBuild/artifact/target/newtv-standalone-1.0.5-SNAPSHOT-all.zip
 
 
 ###########
 # network #
 ###########
 
-qualif_network_address: 10.185.111.250
-debug_network_address: 10.185.111.249
+qualif_network_address: 10.185.111.150
+debug_network_address: 10.185.111.149
 network_netmask: 255.255.254.0
 network_gateway: 10.185.111.254
 network_dns: 10.171.108.2 10.171.36.15 10.171.35.3

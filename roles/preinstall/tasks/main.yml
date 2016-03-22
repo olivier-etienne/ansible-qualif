@@ -17,7 +17,7 @@
   user: >
     name=qualif
     shell=/bin/bash
-    home=/home/{{ qualif_user_name }}
+    home=/home/{{ user_name }}
     groups=qualif,sudo
   become: yes
 
@@ -235,7 +235,7 @@
     dest={{ multimedia_list_path }}
   become: yes
 
-- name: Install deb-multimedia-keyring
+- name: Install deb-multimedia-keyring (update cache first)
   apt: >
     name=deb-multimedia-keyring
     force=yes
@@ -243,7 +243,7 @@
     state=present
   become: yes
 
-- name: Install ffmpeg
+- name: Install ffmpeg (update cache first)
   apt: >
     name=ffmpeg
     force=yes

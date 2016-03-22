@@ -1,6 +1,6 @@
 ---
 
-streammanager_sql: stream-manager.sql
+stream_manager_sql: stream-manager.sql
 
 stream_manager_war_path: /var/lib/tomcat8/webapps
 stream_manager_war_name: StreamManager.war
@@ -12,7 +12,7 @@ stream_manager_dir_name: stream-manager
 stream_manager_path: /usr/local/stream-manager
 stream_manager_src_path: /usr/local/stream-manager/src
 
-maven_artifact_command: "mvn install:install-file  -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
+maven_artifact_command: "mvn install:install-file -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
 maven_packaging_command: "mvn clean package"
 
 multicat_supervisor_path: /usr/local/multicat-tools

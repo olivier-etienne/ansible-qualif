@@ -16,7 +16,7 @@
   become: yes
 
 - name: Restore qualif jenkins useful scripts from nas
-  command: cp -R {{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }} /home/{{ qualif_user_name }}/Bureau
+  command: cp -R {{ qualif_nas_path }}/home/{{ user_name }}/Bureau/{{ item.folder }} /home/{{ user_name }}/Bureau
   with_items:
     - "{{ deploy_folders }}"
   when: qualif_bench and restore_nas
@@ -24,7 +24,7 @@
 
 - name: Set qualif jenkins deploy folder permissions
   file: >
-    path={{ qualif_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }}
+    path={{ qualif_nas_path }}/home/{{ user_name }}/Bureau/{{ item.folder }}
     owner=jenkins
     group=jenkins
     recurse=yes
@@ -57,7 +57,7 @@
   become: yes
 
 - name: Restore debug jenkins useful scripts from nas
-  command: cp -R {{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }} /home/{{ qualif_user_name }}/Bureau
+  command: cp -R {{ debug_nas_path }}/home/{{ user_name }}/Bureau/{{ item.folder }} /home/{{ user_name }}/Bureau
   with_items:
     - "{{ deploy_folders }}"
   when: debug_bench and restore_nas
@@ -65,7 +65,7 @@
 
 - name: Set debug jenkins deploy folder permissions
   file: >
-    path={{ debug_nas_path }}/home/{{ qualif_user_name }}/Bureau/{{ item.folder }}
+    path={{ debug_nas_path }}/home/{{ user_name }}/Bureau/{{ item.folder }}
     owner=jenkins
     group=jenkins
     recurse=yes

@@ -61,7 +61,7 @@
 - name: Config wget proxy
   template: >
     src={{ wgetrc_template }}
-    dest=/home/{{ qualif_user_name }}/{{ wgetrc_file }}
+    dest=/home/{{ user_name }}/{{ wgetrc_file }}
 
 
 #########
