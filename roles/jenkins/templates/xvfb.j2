@@ -1,4 +1,14 @@
 #!/bin/bash
+### BEGIN INIT INFO
+# Provides: Xvfb
+# Required-Start:
+# Required-Stop:
+# Default-Start: 2 3 4 5
+# Default-Stop: 0 6
+# Short-Description: Xvfb
+# Description: Xvfb
+### END INIT INFO
+
 if [ -z "$1" ]; then
   echo "`basename $0` {start|stop}"
   exit
@@ -6,7 +16,7 @@ fi
 
 case "$1" in
 start)
-  /usr/bin/Xvfb :{{ jenkins_display_port }} -ac -screen 0 1024x768x8 &
+  /usr/bin/Xvfb :{{ jenkins_display_port }} -screen 0 1024x768x8 &
 ;;
 stop)
   killall Xvfb
