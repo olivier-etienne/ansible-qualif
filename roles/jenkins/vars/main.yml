@@ -40,6 +40,9 @@ deploy_folders:
 
 jenkins_xvfb_template: xvfb.j2
 jenkins_xvfb_path: /etc/init.d/xvfb
+jenkins_service_path: /etc/init.d/jenkins
+jenkins_service_qualif_template: qualifJenkins.j2
+jenkins_service_debug_template: debugJenkins.j2
 
 jenkins_display_port: 99
 

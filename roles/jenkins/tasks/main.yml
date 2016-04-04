@@ -41,6 +41,14 @@
   when: qualif_bench and restore_nas
   become: yes
 
+- name: Set jenkins service script
+  template: >
+    src={{ jenkins_service_qualif_template }}
+    dest={{ jenkins_service_path }}
+    mode=0751
+  when: qualif_bench and restore_nas
+  become: yes
+
 
 ###############
 # debug bench #
@@ -86,6 +94,14 @@
   command: cp {{ debug_jenkins_nas_path }}/userContent/{{ item.theme }} {{ jenkins_path }}/userContent/
   with_items:
     - "{{ jenkins_themes }}"
+  when: debug_bench and restore_nas
+  become: yes
+
+- name: Set jenkins service script
+  template: >
+    src={{ jenkins_service_debug_template }}
+    dest={{ jenkins_service_path }}
+    mode=0751
   when: debug_bench and restore_nas
   become: yes
 
