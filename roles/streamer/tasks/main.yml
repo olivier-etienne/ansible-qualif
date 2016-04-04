@@ -199,6 +199,34 @@
     state=directory
   become: yes
 
+- name: Create tomcat8 ssh directory
+  file: >
+    path={{ tomcat_ssh_dir_path }}
+    state=directory
+  become: yes
+
+- name: Create ssh key for tomcat user
+  user: >
+    name=tomcat8
+    generate_ssh_key=yes
+    ssh_key_comment=tomcat@localhost
+    ssh_key_file={{ tomcat_ssh_dir_path }}/id_rsa
+  become: yes
+
+- name: Set tomcat8 ssh folder permissions
+  file: >
+    path={{ tomcat_ssh_dir_path }}
+    owner=tomcat8
+    group=nogroup
+    recurse=yes
+    state=directory
+  become: yes
+
+- name: Copy tomcat ssh key into authorized_key
+  command: >
+    ssh-copy-id -i {{ tomcat_ssh_dir_path }}/id_rsa.pub qualif@{{ qualif_network_address }}
+  become: yes
+
 - name: Start tomcat service
   service: >
     name=tomcat8

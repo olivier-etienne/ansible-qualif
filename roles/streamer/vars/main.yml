@@ -12,6 +12,7 @@ stream_manager_dir_name: stream-manager
 stream_manager_path: /usr/local/stream-manager
 stream_manager_src_path: /usr/local/stream-manager/src
 stream_manager_tests_dir_path: /home/qualif/tests
+tomcat_ssh_dir_path: /usr/share/tomcat8/.ssh
 
 multicat_supervisor_path: /usr/local/multicat-tools
 multicat_supervisor_src_dir_path: /usr/local/multicat-tools/src
