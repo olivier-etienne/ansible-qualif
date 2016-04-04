@@ -1,19 +1,17 @@
 ---
 
 stream_manager_sql: stream-manager.sql
+stream_manager_backup_sql_path: /mnt/nas/banc_qualif/home/qualif/Bureau/SAVE_TO_NAS/MyTVTools_dump.SQL
 
 stream_manager_war_path: /var/lib/tomcat8/webapps
 stream_manager_war_name: StreamManager.war
 stream_manager_xml_path: /var/lib/tomcat8/conf/Catalina/localhost
 stream_manager_xml_name: StreamManager.xml
-stream_manager_tar_name: streammanager-1.2-SNAPSHOT.tar.gz
 stream_manager_url: https://github.com/orange-tv-blagnac/stream-manager.git
 stream_manager_dir_name: stream-manager
 stream_manager_path: /usr/local/stream-manager
 stream_manager_src_path: /usr/local/stream-manager/src
-
-maven_artifact_command: "mvn install:install-file -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
-maven_packaging_command: "mvn clean package"
+stream_manager_tests_dir_path: /home/qualif/tests
 
 multicat_supervisor_path: /usr/local/multicat-tools
 multicat_supervisor_src_dir_path: /usr/local/multicat-tools/src

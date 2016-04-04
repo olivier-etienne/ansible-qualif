@@ -2,7 +2,7 @@
 # This playbook install whole qualif bench
 
 - name: apply qualif configuration
-  hosts: qualif[1]
+  hosts: qualif
   remote_user: qualif
   become_user: root
   become_method: su

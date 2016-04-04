@@ -16,13 +16,15 @@ timezone: 'Europe/Paris'
 # streamer #
 ############
 
-stream_manager_database_ip: 10.185.111.250
+stream_manager_database_ip: locahost
 stream_manager_database_name: MyTVTools
 stream_manager_database_user: test
 stream_manager_database_password: univers
 stream_manager_admin_password: papsm
 stream_manager_manager_password: mppsq
-multicat_supervisor_ip: 10.185.111.250
+stream_manager_tar_name: streammanager-1.3-SNAPSHOT.tar.gz
+
+multicat_supervisor_ip: localhost
 multicat_supervisor_ssh_login: qualif
 multicat_supervisor_ssh_password: qualif
 multicat_supervisor_network_ttl: 0
@@ -32,12 +34,21 @@ multicat_supervisor_network_ttl: 0
 # junit-history #
 #################
 
-junit_history_database_ip: 10.185.111.250
+junit_history_database_ip: locahost
 junit_history_database_name: JUnitHistoryTools
 junit_history_database_user: test
 junit_history_database_password: univers
 junit_history_admin_password: papsm
 junit_history_manager_password: mppsq
+junit_history_tar_name: junithistory-1.3-SNAPSHOT.tar.gz
+
+
+#########
+# maven #
+#########
+
+maven_artifact_command: "mvn install:install-file -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
+maven_packaging_command: "mvn clean package"
 
 
 #######

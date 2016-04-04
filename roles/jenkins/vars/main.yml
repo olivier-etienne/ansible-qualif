@@ -43,4 +43,4 @@ jenkins_xvfb_path: /etc/init.d/xvfb
 
 jenkins_display_port: 99
 
-jenkins_clean_profile_cmd: "find /var/lib/jenkins/ -type f -exec sed -i 's/-firefoxProfileTemplate \\/var\\/lib\\/jenkins\\/firefox\\/ljhyckqd.Selenium //g' {} \\;"
+jenkins_clean_profile_cmd: "find /var/lib/jenkins/ -type f -exec sed -i 's/-firefoxProfileTemplate \\/var\\/lib\\/jenkins\\/firefox\\/ljhyckqd.Selenium/-singleWindow/g' {} \\;"

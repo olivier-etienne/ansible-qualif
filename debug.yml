@@ -2,7 +2,7 @@
 # This playbook install whole debug bench
 
 - name: apply debug configuration
-  hosts: debug[1]
+  hosts: debug
   remote_user: qualif
   become_user: root
   become_method: su

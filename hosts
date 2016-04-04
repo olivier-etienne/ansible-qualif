@@ -1,7 +1,5 @@
 [qualif]
-localhost # internet IP address (without proxy)
-localhost # internal IP address (with or without proxy)
+localhost
 
 [debug]
-localhost # internet IP address (without proxy)
-localhost # internal IP address (with or without proxy)
+localhost

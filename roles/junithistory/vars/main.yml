@@ -1,16 +1,14 @@
 ---
 
 junit_history_sql: junit-history.sql
+junit_history_backup_sql_path: /mnt/nas/banc_qualif/home/qualif/Bureau/SAVE_TO_NAS/JUnitHistoryTools_dump.SQL
 
 junit_history_war_path: /var/lib/tomcat8/webapps
 junit_history_war_name: JUnitHistory.war
 junit_history_xml_path: /var/lib/tomcat8/conf/Catalina/localhost
 junit_history_xml_name: JUnitHistory.xml
-junit_history_tar_name: junithistory-1.1.tar.gz
 junit_history_url: https://github.com/orange-tv-blagnac/junit-history.git
 junit_history_dir_name: junit-history
 junit_history_path: /usr/local/junit-history
 junit_history_src_path: /usr/local/junit-history/src
-
-maven_artifact_command: "mvn install:install-file -Dfile=org.moxieapps.gwt.uploader-1.1.0.jar -DgroupId=org.moxieapps -DartifactId=org.moxieapps.gwt.uploader -Dversion=1.1.0 -Dpackaging=jar -DgeneratePom=true"
-maven_packaging_command: "mvn clean package"
+gwtjunithistory_dir_path: /usr/local/gwtjunithistory/prod

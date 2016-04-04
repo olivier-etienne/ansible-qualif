@@ -51,6 +51,14 @@
     state=import
   become: yes
 
+- name: Restore junit-history backup tables
+  mysql_db: >
+    name={{ junit_history_database_name }}
+    target={{ junit_history_backup_sql_path }}
+    state=import
+  when: restore_nas
+  become: yes
+
 
 #################
 # junit-history #
@@ -162,6 +170,26 @@
     dest={{ junit_history_xml_path }}/{{ junit_history_xml_name }}
     regexp='name="pwd_manager" value="xxxx"'
     replace='name="pwd_manager" value="{{ junit_history_manager_password }}"'
+  become: yes
+
+- name: Create gwtjunithistory directory
+  file: >
+    path={{ gwtjunithistory_dir_path }}
+    state=directory
+  become: yes
+
+- name: Restore gwtjunithistory folder
+  command: cp -R /mnt/nas/banc_iptvkit/{{ gwtjunithistory_dir_path }} {{ gwtjunithistory_dir_path }}
+  when: restore_nas
+  become: yes
+
+- name: Set gwtjunithistory folder permissions
+  file: >
+    path={{ gwtjunithistory_dir_path }}
+    owner=tomcat8
+    group=tomcat8
+    recurse=yes
+    state=directory
   become: yes
 
 - name: Start tomcat service

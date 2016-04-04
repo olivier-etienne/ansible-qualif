@@ -13,6 +13,8 @@ rename s/.log/.bak/ *.log
 dpkg -l > /home/qualif/Bureau/SAVE_TO_NAS/installed_packages
 crontab -u qualif -l > /home/qualif/Bureau/SAVE_TO_NAS/crontab_qualif
 crontab -l > /home/qualif/Bureau/SAVE_TO_NAS/crontab_root
+mysqldump --user=test --password=univers MyTVTools > /home/qualif/Bureau/SAVE_TO_NAS/MyTVTools_dump.SQL
+mysqldump --user=test --password=univers JUnitHistoryTools > /home/qualif/Bureau/SAVE_TO_NAS/JUnitHistoryTools_dump.SQL
 
 rsync -av --force --del --exclude 'ZNE' /home/qualif/ /mnt/nas/banc_qualif/home/qualif/  --log-file /var/log/saveToNas/job1.log 
 rc1=$?
