@@ -26,7 +26,7 @@ rc3=$?
 rsync -av --force --del /etc/ /mnt/nas/banc_debug/etc/  --log-file /var/log/saveToNas/job4.log
 rc4=$?
 
-rsync -av --force --del --include='test' --include='test/*' --include='dashboard' --exclude='*' /var/www/ /mnt/nas/banc_debug/var/www/ --log-file /var/log/saveToNas/job5.log
+rsync -av --force --del --include='./index.php' --include='./test' --include='./test/*' --include='./img' --include='./img/*' --include='./dashboard' --exclude='*' /var/www/ /mnt/nas/banc_debug/var/www/ --log-file /var/log/saveToNas/job5.log
 rc5=$?
 
 rc=$(($rc1 + $rc2 + $rc3 + $rc4 + $rc5))
