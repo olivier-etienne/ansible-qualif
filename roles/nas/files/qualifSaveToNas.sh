@@ -34,7 +34,13 @@ rc5=$?
 rsync -av --force --del /usr/local/multicat-tools/videos/ /mnt/nas/banc_qualif/usr/local/multicat-tools/videos/  --log-file /var/log/saveToNas/job6.log
 rc6=$?
 
-rc=$(($rc1 + $rc2 + $rc3 + $rc4 + $rc5 + $rc6))
+sudo rsync -av --force --del /var/lib/tomcat8/ /mnt/nas/banc_qualif/var/lib/tomcat8/  --log-file /var/log/saveToNas/job6.log
+rc7=$?
+
+sudo rsync -av --force --del /usr/local/gwtjunithistory/ /mnt/nas/banc_qualif/usr/local/gwtjunithistory/  --log-file /var/log/saveToNas/job7.log
+rc8=$?
+
+rc=$(($rc1 + $rc2 + $rc3 + $rc4 + $rc5 + $rc6 + $rc7 + $rc8))
 if [ $rc != 0 ] ; then
    echo "Erreur pendant le backup du banc de qualif. Plus de details dans /var/log/saveToNas/jobs*.log" > /var/log/saveToNas/status.log
 
@@ -61,6 +67,14 @@ if [ $rc != 0 ] ; then
    if [ $rc6 != 0 ] ; then
        echo "\nstatus = $rc6" >> /var/log/saveToNas/job6.log
        cat /var/log/saveToNas/job6.log | mail -s 'BACKUP QUALIF WARNING' archilog.newtv@orange.com
+   fi
+   if [ $rc7 != 0 ] ; then
+       echo "\nstatus = $rc7" >> /var/log/saveToNas/job7.log
+       cat /var/log/saveToNas/job7.log | mail -s 'BACKUP QUALIF WARNING' archilog.newtv@orange.com
+   fi
+   if [ $rc8 != 0 ] ; then
+       echo "\nstatus = $rc8" >> /var/log/saveToNas/job8.log
+       cat /var/log/saveToNas/job8.log | mail -s 'BACKUP QUALIF WARNING' archilog.newtv@orange.com
    fi
 else
    echo "Success" > /var/log/saveToNas/status.log

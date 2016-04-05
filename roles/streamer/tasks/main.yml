@@ -196,6 +196,8 @@
 - name: Create tests directory (for upload files)
   file: >
     path={{ stream_manager_tests_dir_path }}
+    owner=qualif
+    group=qualif
     state=directory
   become: yes
 
@@ -224,7 +226,7 @@
 
 - name: Copy tomcat ssh key into authorized_key
   command: >
-    ssh-copy-id -i {{ tomcat_ssh_dir_path }}/id_rsa.pub qualif@{{ qualif_network_address }}
+    sshpass -p {{ multicat_supervisor_ssh_password }} ssh-copy-id -i {{ tomcat_ssh_dir_path }}/id_rsa.pub {{ multicat_supervisor_ssh_login }}@{{ multicat_supervisor_ip }}
   become: yes
 
 - name: Start tomcat service

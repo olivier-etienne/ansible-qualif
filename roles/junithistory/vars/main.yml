@@ -11,4 +11,4 @@ junit_history_url: https://github.com/orange-tv-blagnac/junit-history.git
 junit_history_dir_name: junit-history
 junit_history_path: /usr/local/junit-history
 junit_history_src_path: /usr/local/junit-history/src
-gwtjunithistory_dir_path: /usr/local/gwtjunithistory/prod
+gwtjunithistory_dir_path: /usr/local/gwtjunithistory

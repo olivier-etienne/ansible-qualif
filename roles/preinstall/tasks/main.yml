@@ -39,13 +39,14 @@
 - name: Install misc tools
   apt: name={{item}} state=present
   with_items:
-    - java-common
-    - default-jre
-    - default-jdk
-    - zip
-    - vim
     - curl
+    - default-jdk
+    - default-jre
+    - java-common
     - nload
+    - sshpass
+    - vim
+    - zip
   become: yes
 
 

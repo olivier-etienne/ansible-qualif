@@ -174,12 +174,13 @@
 
 - name: Create gwtjunithistory directory
   file: >
-    path={{ gwtjunithistory_dir_path }}
+    path={{ gwtjunithistory_dir_path }}/prod
     state=directory
   become: yes
 
 - name: Restore gwtjunithistory folder
-  command: cp -R /mnt/nas/banc_iptvkit/{{ gwtjunithistory_dir_path }} {{ gwtjunithistory_dir_path }}
+  command: >
+    cp -R /mnt/nas/banc_iptvkit/{{ gwtjunithistory_dir_path }}/prod {{ gwtjunithistory_dir_path }}
   when: restore_nas
   become: yes
 

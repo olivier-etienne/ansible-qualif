@@ -25,7 +25,7 @@
 	- Copy public SSH key content to qualif/debug bench
 		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
 
-	- Edit first row of each [debug] / [qualif] group in ansible host file with correct IP address (internet)
+	- Edit first row of each [debug] / [qualif] group in ansible host file with correct IP address
 
 	- Edit groups_var/all.yml file with correct information
 
@@ -37,15 +37,18 @@
 	- As IP address changed, copy again public SSH key content to qualif/debug bench
 		ssh-copy-id -i ~/.ssh/id_rsa.pub qualif@xxx.xxx.xxx.xxx
 
-	- Edit second row of each [debug] / [qualif] group in ansible host file with correct IP address (internal)
+	- Update first row of each [debug] / [qualif] group in ansible host file with correct IP address
 
 	- Run the debug script to install debug bench (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts debug.yml --ask-become-pass
-	  Then enter the root password
+	  Then enter the root password when asked
 
 	- Run the qualif script to install qualif bench  (set restore_nas to false if no nas available)
 		ansible-playbook -i hosts qualif.yml --ask-become-pass
-	  Then enter the root password
+	  Then enter the root password when asked
 
 	- Reboot debug / qualif bench
 	    shutdown -r now
+
+
+Note: roles can be enable/disable by editing preinstall.yml/debug.yml/qualif.yml files
