@@ -5,6 +5,7 @@ apt_config_template: apt.conf.j2
 rsync_options: -am --include='config.xml' --include='nextBuildNumber' --include='*/' --exclude='*'
 
 jenkins_path: /var/lib/jenkins
+jenkins_workaround_path: /var/lib/jenkins/workaround/init
 qualif_nas_path: /mnt/nas/banc_qualif
 debug_nas_path: /mnt/nas/banc_debug
 debug_jenkins_nas_path: /mnt/nas/banc_debug/var/lib/jenkins
@@ -38,11 +39,15 @@ deploy_folders:
   - { folder: "deploy_standalone" }
   - { folder: "deployRealase" }
 
+# List of jenkins init workaround files
+jenkins_workaround_files:
+  - { file: "INIT_JENKINS_TESTSUITE.html" }
+  - { file: "init_jenkins.html" }
+
 jenkins_xvfb_template: xvfb.j2
 jenkins_xvfb_path: /etc/init.d/xvfb
 jenkins_service_path: /etc/init.d/jenkins
-jenkins_service_qualif_template: qualifJenkins.j2
-jenkins_service_debug_template: debugJenkins.j2
+jenkins_service_template: jenkins.j2
 
 jenkins_display_port: 99
 

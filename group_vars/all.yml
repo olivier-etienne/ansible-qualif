@@ -114,9 +114,8 @@ standalone_url: http://10.192.34.168/jenkins/view/standalone/job/standalone-trun
 # jenkins #
 ###########
 
-jenkins_statup_options: -Dhudson.model.DirectoryBrowserSupport.CSP=
-jenkins_startup_qualif_workaround: '/bin/su - jenkins -c "export DISPLAY=:99 && java -jar /var/lib/jenkins/selenium-server-standalone.jar -port 4414 -singleWindow -userExtensions /var/lib/jenkins/jobs/CHECKOUT_SVN/workspace/selenium/user-extensions.js -htmlSuite *firefox http://rpitesttv14.toulouse.francetelecom.fr/ /var/lib/jenkins/jobs/CHECKOUT_SVN/workspace/selenium/COMMON/CHECK_CONFIG.html /tmp/JENKINS_CHECK_CONFIG_PI14_result.html"'
-jenkins_startup_debug_workaround: '/bin/su - jenkins -c "export DISPLAY=:99 && java -jar /var/lib/jenkins/selenium-server-standalone.jar -port 4424 -singleWindow -userExtensions /var/lib/jenkins/jobs/CHECKOUT_SVN/workspace/selenium/user-extensions.js -htmlSuite *firefox http://rpitesttv24.toulouse.francetelecom.fr/ /var/lib/jenkins/jobs/CHECKOUT_SVN/workspace/selenium/COMMON/CHECK_CONFIG.html /tmp/JENKINS_CHECK_CONFIG_PI24_result.html"'
+jenkins_init_options: -Dhudson.model.DirectoryBrowserSupport.CSP=
+jenkins_init_workaround: '/bin/su - jenkins -c "export DISPLAY=:99 && java -jar /var/lib/jenkins/selenium-server-standalone.jar -port 4499 -singleWindow -userExtensions /var/lib/jenkins/jobs/CHECKOUT_SVN/workspace/selenium/user-extensions.js -htmlSuite *firefox http://localhost /var/lib/jenkins/workaround/init/INIT_JENKINS_TESTSUITE.html /tmp/JENKINS_INIT_result.html"'
 
 
 ###########

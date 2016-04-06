@@ -43,10 +43,10 @@
 
 - name: Set jenkins service script
   template: >
-    src={{ jenkins_service_qualif_template }}
+    src={{ jenkins_service_template }}
     dest={{ jenkins_service_path }}
     mode=0751
-  when: qualif_bench and restore_nas
+  when: qualif_bench
   become: yes
 
 
@@ -99,10 +99,10 @@
 
 - name: Set jenkins service script
   template: >
-    src={{ jenkins_service_debug_template }}
+    src={{ jenkins_service_template }}
     dest={{ jenkins_service_path }}
     mode=0751
-  when: debug_bench and restore_nas
+  when: debug_bench
   become: yes
 
 
@@ -126,6 +126,20 @@
 - name: Clean existing user profile config
   command: >
     {{ jenkins_clean_profile_cmd }}
+  become: yes
+
+- name: Create workaround init jenkins directory
+  file: >
+    path={{ jenkins_workaround_path }}
+    state=directory
+  become: yes
+
+- name: Copy workaround jenkins tests files
+  copy: >
+    src={{ item.file }}
+    dest={{ jenkins_workaround_path }}
+  with_items:
+    - "{{ jenkins_workaround_files }}"
   become: yes
 
 - name: Set jenkins folder permissions

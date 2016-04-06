@@ -92,7 +92,7 @@ check_tcp_port() {
 #
 do_start()
 {
-    {{ jenkins_startup_debug_workaround }}
+    {{ jenkins_init_workaround }}
 
     # the default location is /var/run/jenkins/jenkins.pid but the parent directory needs to be created
     mkdir `dirname $PIDFILE` > /dev/null 2>&1 || true
@@ -121,7 +121,7 @@ do_start()
 
     # --user in daemon doesn't prepare environment variables like HOME, USER, LOGNAME or USERNAME,
     # so we let su do so for us now
-    $SU -l $JENKINS_USER --shell=/bin/bash -c "$DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS {{ jenkins_statup_options }} -jar $JENKINS_WAR $JENKINS_ARGS" || return 2
+    $SU -l $JENKINS_USER --shell=/bin/bash -c "$DAEMON $DAEMON_ARGS -- $JAVA $JAVA_ARGS {{ jenkins_init_options }} -jar $JENKINS_WAR $JENKINS_ARGS" || return 2
 }
 
 
