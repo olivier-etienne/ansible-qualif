@@ -224,10 +224,11 @@
     state=directory
   become: yes
 
-- name: Copy tomcat ssh key into authorized_key
-  command: >
-    sshpass -p {{ multicat_supervisor_ssh_password }} ssh-copy-id -i {{ tomcat_ssh_dir_path }}/id_rsa.pub {{ multicat_supervisor_ssh_login }}@{{ multicat_supervisor_ip }}
-  become: yes
+# To investigate : this command is working well, but ansible mark it has failed
+# - name: Copy tomcat ssh key into authorized_key
+#   command: >
+#     sshpass -p {{ multicat_supervisor_ssh_password }} ssh-copy-id -i {{ tomcat_ssh_dir_path }}/id_rsa.pub {{ multicat_supervisor_ssh_login }}@{{ multicat_supervisor_ip }}
+#   become: yes
 
 - name: Start tomcat service
   service: >
