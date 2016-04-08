@@ -176,7 +176,7 @@
   become: yes
 
 - name: Install maven
-  apt: name=maven2 state=present
+  apt: name=maven state=present
   become: yes
 
 - name: Install librairies for multicat-supervisor
