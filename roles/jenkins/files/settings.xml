@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+
+	<!-- <localRepository>E:/maven-repo/newtv</localRepository> -->
+	<!-- <localRepository>/home/qualif/.m2/repository/</localRepository> -->
+
+	<pluginGroups>
+	</pluginGroups>
+
+	<!-- <proxies /> <proxies> <proxy> <id>optional</id> <active>true</active> 
+		<protocol>http</protocol> <host>proxy</host> <port>8080</port> <nonProxyHosts></nonProxyHosts> 
+		</proxy> </proxies> -->
+	<servers>
+
+ 		<server>
+			<id>inhouse</id>
+			<username>oneiptv-team</username>
+			<password>oneadmin</password>
+		</server>
+ 
+		<server>
+			<id>inhouse.snapshot</id>
+			<username>oneiptv-team</username>
+			<password>oneadmin</password>
+		</server>
+
+		<server>
+			<id>sonatype</id>
+			<username>lvvw1269</username>
+			<password>Orange08&amp;</password>
+		</server>
+	</servers>
+
+	<mirrors>
+		<mirror>
+			<id>FTRDProxy.central</id>
+			<mirrorOf>central</mirrorOf>
+			<name>FTRD Maven Proxy mirroring central(maven 2) repository</name>
+			<url>http://maven2.rd.francetelecom.fr/proxy/repository/public</url>
+		</mirror>
+	</mirrors>
+
+	<profiles>
+		<profile>
+			<id>ft</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<repositories>
+				<!-- release repositories -->
+				<repository>
+					<id>inhouse</id>
+					<name>inhouse repository</name>
+					<url>http://maven2.rd.francetelecom.fr/proxy/repository/inhouse</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</repository>
+				<!-- snapshot repositories -->
+				<repository>
+					<id>inhouse.snapshot</id>
+					<name>inhouse snapshot repository</name>
+
+					<url>http://maven2.rd.francetelecom.fr/proxy/repository/inhouse.snapshot
+					</url>
+					<releases>
+						<enabled>false</enabled>
+					</releases>
+					<snapshots>
+						<enabled>true</enabled>
+					</snapshots>
+
+				</repository>
+				<!-- <repository> <id>sonatype</id> <url>http://oss.sonatype.org/content/repositories/snapshots</url> 
+					<snapshots> <enabled>true</enabled> </snapshots> <releases> <enabled>false</enabled> 
+					</releases> </repository> -->
+
+			</repositories>
+			<pluginRepositories>
+				<pluginRepository>
+					<id>plugins.inhouse</id>
+					<name>inhouse repository</name>
+					<url>http://maven2.rd.francetelecom.fr/proxy/repository/inhouse
+					</url>
+					<releases>
+						<enabled>true</enabled>
+					</releases>
+					<snapshots>
+						<enabled>false</enabled>
+					</snapshots>
+				</pluginRepository>
+			</pluginRepositories>
+		</profile>
+
+	</profiles>
+
+</settings>

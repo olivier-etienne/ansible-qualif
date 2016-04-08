@@ -6,6 +6,7 @@ rsync_options: -am --include='config.xml' --include='nextBuildNumber' --include=
 
 jenkins_path: /var/lib/jenkins
 jenkins_workaround_path: /var/lib/jenkins/workaround/init
+jenkins_m2_repo_path: /var/lib/jenkins/.m2
 qualif_nas_path: /mnt/nas/banc_qualif
 debug_nas_path: /mnt/nas/banc_debug
 debug_jenkins_nas_path: /mnt/nas/banc_debug/var/lib/jenkins
@@ -18,6 +19,8 @@ jenkins_themes:
 jenkins_plugins:
   - { plugin: "build-pipeline-plugin" }
   - { plugin: "build-pipeline-plugin.jpi" }
+  - { plugin: "cascade-release" }
+  - { plugin: "cascade-release.jpi" }
   - { plugin: "greenballs" }
   - { plugin: "greenballs.jpi" }
   - { plugin: "parameterized-trigger" }
@@ -52,3 +55,6 @@ jenkins_service_template: jenkins.j2
 jenkins_display_port: 99
 
 jenkins_clean_profile_cmd: "find /var/lib/jenkins/ -type f -exec sed -i 's/-firefoxProfileTemplate \\/var\\/lib\\/jenkins\\/firefox\\/ljhyckqd.Selenium/-singleWindow/g' {} \\;"
+
+maven_settings_file: settings.xml
+maven_settings_path: /etc/maven/settings.xml

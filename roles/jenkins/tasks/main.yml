@@ -41,6 +41,18 @@
   when: qualif_bench and restore_nas
   become: yes
 
+- name: Remove existing jenkins m2 repository directory
+  file: >
+    path={{ jenkins_m2_repo_path }}
+    state=absent
+  when: qualif_bench and restore_nas
+  become: yes
+
+- name: Restore jenkins m2 repository from nas
+  command: cp -R {{ qualif_jenkins_nas_path }}/home/{{ user_name }}/.m2 {{ jenkins_path }}
+  when: qualif_bench and restore_nas
+  become: yes
+
 - name: Set jenkins service script
   template: >
     src={{ jenkins_service_template }}
@@ -140,6 +152,12 @@
     dest={{ jenkins_workaround_path }}
   with_items:
     - "{{ jenkins_workaround_files }}"
+  become: yes
+
+- name: Copy maven settings file
+  copy: >
+    src={{ maven_settings_file }}
+    dest={{ maven_settings_path }}
   become: yes
 
 - name: Set jenkins folder permissions

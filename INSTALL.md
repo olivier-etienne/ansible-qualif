@@ -47,6 +47,9 @@
 		ansible-playbook -i hosts qualif.yml --ask-become-pass
 	  Then enter the root password when asked
 
+	- If streamer role has been installed, copy tomcat ssh key into multicat server authorized_key file
+		sshpass -p <multicat_supervisor_ssh_password> ssh-copy-id -i <tomcat_ssh_dir_path>/id_rsa.pub <multicat_supervisor_ssh_login>@<multicat_supervisor_ip>
+
 	- Reboot debug / qualif bench
 	    shutdown -r now
 
