@@ -49,7 +49,7 @@
   become: yes
 
 - name: Restore jenkins m2 repository from nas
-  command: cp -R {{ qualif_jenkins_nas_path }}/home/{{ user_name }}/.m2 {{ jenkins_path }}
+  command: cp -R {{ qualif_nas_path }}/home/{{ user_name }}/.m2 {{ jenkins_path }}
   when: qualif_bench and restore_nas
   become: yes
 
