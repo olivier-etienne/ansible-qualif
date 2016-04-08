@@ -17,6 +17,7 @@
     - webserver
     - streamer
     - junithistory
+    - testdispatcher
     - phpmyadmin
     - standalone
     - crontab

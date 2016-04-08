@@ -1,0 +1,12 @@
+---
+
+test_dispatcher_bin_path: /home/qualif/scripts/bin
+test_dispatcher_jar_path: /home/qualif/scripts/bin/test-dispatcher-service.jar
+test_dispatcher_config_path: /home/qualif/scripts/bin/config.yaml
+test_dispatcher_service_path: /etc/init.d/test-dispatcher
+
+test_dispatcher_service_template: test-dispatcher.j2
+test_dispatcher_config_template: config.yaml.j2
+
+iptvkit_nas_path: /mnt/nas/banc_iptvkit
+nas_test_dispatcher_jar_path: /home/iptvkit/scripts/bin/test-dispatcher-service.jar

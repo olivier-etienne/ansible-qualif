@@ -1,0 +1,85 @@
+# =============================================================================
+# HTTP configuration
+# =============================================================================
+http:
+
+  # The port on which the HTTP server listens for service requests.
+  # Because Java cannot drop privileges in a POSIX system, these
+  # ports cannot be in the range 1-1024. A port value of 0 will
+  # make the OS use an arbitrary unused port.
+  port: {{ test_dispatcher_port }}
+
+  # The port on which the HTTP server listens for administrative
+  # requests. Subject to the same limitations as "port". If this is
+  # set to the same value as port, the admin routes will be mounted
+  # under /admin.
+  adminPort: {{ test_dispatcher_admin_port }}
+  
+# =============================================================================
+# RMI configuration
+# =============================================================================
+# RMI registry
+rmiPort: 1099
+
+# RMI browser service (GWT) port
+browserServicePort: 2212
+
+# RMI opera service port
+operaServicePort: 2213
+
+# =============================================================================
+# Opera Scope Server configuration
+# =============================================================================
+scopeServerPort: 7001
+
+# =============================================================================
+# Browser aliases
+#   Soft@Home SAGEM Fr		: Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAGEM/37/03.02.59/00:26:91:D2:61:43
+#   Soft@Home SAMSUNG (Fr)	: Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAMSUNG/193/03.50.21/00:21:4C:78:00:53
+#   Soft@Home SAGEM Pl		: Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAGEM/UHD86PL/04.02.23/E8:BE:81:7E:88:56
+#	Soft@Home Saguaro       : Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAGEM/WHD80PL/07.01.66/F0:82:61:38:46:16
+#   NewBox					: Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAGEM/IHD92/xx.yy.zz/aa:aa:aa:aa:aa:aa
+#   NewBox (SDK 8.7.2)		: Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/525.1+ (KHTML, like Gecko, Safari/525.1+); SAGEMCOM/RTIB421/05.06.26/E8:BE:81:7E:8E:FE
+#   Mib4 FW on Newbox STB	: Mozilla/5.0 (Unknown; Linux i686) AppleWebKit/538.1 (KHTML, like Gecko) qtrabrowser Safari/538.1
+#   AirTies					: Opera/9.80 (Linux mips; U; HbbTV/1.1.1 (+PVR+RTSP;Airties;Air7200;16777987;;); en) Presto/2.8.115 Version/11.10
+#   Chromium				: Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.13 (KHTML, like Gecko) Chrome/24.0.1287.0 Safari/537.13
+# =============================================================================
+browsers:
+  # any Opera based terminal
+  opera: ".*opera.*"
+  
+  # any WebKit based terminal
+  safari: ".*webkit.*"
+  
+  # AirTies STB
+  airties: ".*airties.*"
+  
+  # any Soft@Home STB
+  softathome: ".*(?:AppleWebKit/525)|(?:qtrabrowser).*"
+  
+  # NewBox STB
+  newbox: ".*(?:(?:IHD92)|(?:RTIB421)).*"
+
+  # Poland STBU
+  stbu_pl: ".*UHD86PL.*"
+  
+  # PL Saguaro
+  stbu_pl_sag: ".*WHD80PL.*"
+  
+  # France STBU
+  stbu_fr: ".*(?:(?:SAGEM/37)|(?:SAMSUNG/193)).*"
+  
+  # France Mib4
+  mib: ".*(?:(?:qtrabrowser)).*"
+  
+# =============================================================================
+# Logging configuration
+# =============================================================================
+logging:
+
+  # The default level of all loggers. Can be OFF, ERROR, WARN, INFO, DEBUG, TRACE, or ALL.
+  level: INFO
+
+  # Logger-specific levels.
+  loggers:
+    "com.francetelecom": DEBUG

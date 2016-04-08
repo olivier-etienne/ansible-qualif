@@ -1,0 +1,55 @@
+---
+# This playbook will install test-dispatcher tool
+
+
+- name: Remove existing test-dispatcher bin directory
+  file: >
+    path={{ test_dispatcher_bin_path }}
+    state=absent
+  become: yes
+
+- name: Copy test-dispatcher service
+  template: >
+    src={{ test_dispatcher_service_template }}
+    dest={{ test_dispatcher_service_path }}
+    mode=0751
+  become: yes
+
+- name: Add test-dispatcher service to startup
+  command: >
+    update-rc.d test-dispatcher defaults
+    chdir=/etc/init.d
+  become: yes
+
+- name: Create test-dispatcher bin directory
+  file: >
+    path={{ test_dispatcher_bin_path }}
+    state=directory
+  become: yes
+
+- name: Copy test-dispatcher config file
+  template: >
+    src={{ test_dispatcher_config_template }}
+    dest={{ test_dispatcher_config_path }}
+  become: yes
+
+- name: Restore test-dispatcher jar file from nas
+  command: cp -R {{ iptvkit_nas_path }}{{ nas_test_dispatcher_jar_path }} {{ test_dispatcher_bin_path }}
+  when: restore_nas
+  become: yes
+
+- name: Set test-dispatcher bin folder permissions
+  file: >
+    path={{ test_dispatcher_bin_path }}
+    owner=qualif
+    group=qualif
+    recurse=yes
+    state=directory
+  when: restore_nas
+  become: yes
+
+- name: Start test-dispatcher service
+  service: >
+    name=test-dispatcher
+    state=restarted
+  become: yes
