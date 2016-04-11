@@ -56,7 +56,6 @@
 - name: Remove java 8 (avoid cascade-release job failure)
   apt: >
     name=oracle-java8-installer
-    autoremove=yes
     state=absent
   when: qualif_bench
   become: yes
@@ -165,7 +164,6 @@
 - name: Remove maven2 (not compatible with some jenkins jobs)
   apt: >
     name=maven2
-    autoremove=yes
     state=absent
   become: yes
 
