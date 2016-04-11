@@ -53,6 +53,14 @@
   when: qualif_bench and restore_nas
   become: yes
 
+- name: Remove java 8 (avoid cascade-release job failure)
+  apt: >
+    name=oracle-java8-installer
+    autoremove=yes
+    state=absent
+  when: qualif_bench
+  become: yes
+
 - name: Set jenkins service script
   template: >
     src={{ jenkins_service_template }}
@@ -152,6 +160,19 @@
     dest={{ jenkins_workaround_path }}
   with_items:
     - "{{ jenkins_workaround_files }}"
+  become: yes
+
+- name: Remove maven2 (not compatible with some jenkins jobs)
+  apt: >
+    name=maven2
+    autoremove=yes
+    state=absent
+  become: yes
+
+- name: Install maven (needed for some jenkins jobs)
+  apt: >
+    name=maven
+    state=present
   become: yes
 
 - name: Copy maven settings file

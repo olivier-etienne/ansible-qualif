@@ -3,6 +3,7 @@
 junit_history_sql: junit-history.sql
 junit_history_backup_sql_path: /mnt/nas/banc_qualif/home/qualif/Bureau/SAVE_TO_NAS/JUnitHistoryTools_dump.SQL
 
+junit_history_history_path: /var/lib/tomcat8/webapps/JUnitHistory/history
 junit_history_war_path: /var/lib/tomcat8/webapps
 junit_history_war_name: JUnitHistory.war
 junit_history_xml_path: /var/lib/tomcat8/conf/Catalina/localhost

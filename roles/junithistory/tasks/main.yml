@@ -193,6 +193,12 @@
     state=directory
   become: yes
 
+- name: Remove tomcat junit-history history directory
+  file: >
+    path={{ junit_history_history_path }}
+    state=absent
+  become: yes
+
 - name: Start tomcat service
   service: >
     name=tomcat8

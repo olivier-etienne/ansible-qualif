@@ -13,12 +13,12 @@
 
   roles:
     - nas
-    - jenkins
-    - webserver
     - streamer
     - junithistory
     - testdispatcher
     - phpmyadmin
+    - jenkins
+    - webserver
     - standalone
     - crontab
     - network
