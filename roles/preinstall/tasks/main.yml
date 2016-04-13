@@ -175,8 +175,12 @@
   apt: name=build-essential state=present
   become: yes
 
-- name: Install maven
+- name: Install maven (needed for jenkins)
   apt: name=maven state=present
+  become: yes
+
+- name: Install maven2 (needed for gwt apps)
+  apt: name=maven2 state=present
   become: yes
 
 - name: Install librairies for multicat-supervisor

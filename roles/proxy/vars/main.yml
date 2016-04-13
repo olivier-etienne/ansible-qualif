@@ -39,9 +39,9 @@ wgetrc_file: .wgetrc
 # maven #
 #########
 
-maven_settings_file: /etc/maven2/settings.xml
-maven_proxy_tag: "#FT-MAVEN-Proxy"
-maven_proxies_tag: "<proxies>"
+maven2_settings_file_path: /etc/maven2/settings.xml
+maven2_proxy_tag: "#FT-MAVEN-Proxy"
+maven2_proxies_tag: "<proxies>"
 
 # Orange maven proxy
 maven_proxy:

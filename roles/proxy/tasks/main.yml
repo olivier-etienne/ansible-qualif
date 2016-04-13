@@ -64,21 +64,21 @@
     dest=/home/{{ user_name }}/{{ wgetrc_file }}
 
 
-#########
-# maven #
-#########
+##########
+# maven2 #
+##########
 
-- name: Remove old maven proxy config
+- name: Remove old maven2 proxy config
   lineinfile: >
-    dest={{ maven_settings_file }}
-    regexp="{{ maven_proxy_tag }}"
+    dest={{ maven2_settings_file_path }}
+    regexp="{{ maven2_proxy_tag }}"
     state=absent
   become: yes
 
-- name: Config maven proxy
+- name: Config maven2 proxy
   lineinfile: >
-    dest={{ maven_settings_file }}
-    insertafter="{{ maven_proxies_tag }}"
+    dest={{ maven2_settings_file_path }}
+    insertafter="{{ maven2_proxies_tag }}"
     line="{{ item.line }}"
     state=present
   with_items:
