@@ -119,6 +119,13 @@
     state=present
   become: yes
 
+- name: Install useful lib for jenkins
+  apt: name={{item}} state=present
+  with_items:
+    - python-lxml
+    - python-requests
+  become: yes
+
 
 ###############
 # Web servers #
